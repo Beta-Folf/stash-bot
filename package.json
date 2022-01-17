@@ -1,0 +1,13 @@
+{
+  "name": "stash-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Beta-Folf/stash-bot.git",
+  "author": "Beta Folf <beta@betafolf.dev>",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^16.0.2",
+    "@commitlint/config-conventional": "^16.0.0",
+    "husky": "^7.0.4"
+  }
+}
