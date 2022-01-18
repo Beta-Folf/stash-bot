@@ -13,7 +13,7 @@ services:
 
   bot:
     container_name: stash-bot-bot
-    image: node:14
+    image: node:16
     depends_on:
       - dynamodb-local
     ports:
