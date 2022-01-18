@@ -16,6 +16,12 @@ class LoggerClass {
 
     console[level](msg);
   }
+  log(message: string) {
+    this.logMessage({
+      level: LEVEL.INFO,
+      message,
+    });
+  }
   info(message: string) {
     this.logMessage({
       level: LEVEL.INFO,
