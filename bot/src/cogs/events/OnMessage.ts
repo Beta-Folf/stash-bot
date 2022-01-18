@@ -1,6 +1,6 @@
 import { Client, Message } from "discord.js";
 
-import { EventCog } from "~/framework/EventCog";
+import { EventCog, EventHandlerArgs } from "~/framework/EventCog";
 import { Logger } from "~/utils/logger";
 
 export default class OnMessageEvent extends EventCog<Message> {
@@ -11,7 +11,12 @@ export default class OnMessageEvent extends EventCog<Message> {
     });
   }
 
-  async eventHandler(context) {
+  async eventHandler(args: EventHandlerArgs<Message>) {
+    const { client, context } = args;
+
+    console.log(client);
+    console.log(context);
+
     Logger.log(context.author.toString());
   }
 }

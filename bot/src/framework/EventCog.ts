@@ -1,7 +1,12 @@
 import { Client } from "discord.js";
 
-interface IEventCog<T = undefined> {
-  eventHandler(args: { client: Client; context?: T }): Promise<void>;
+export interface EventHandlerArgs<T = undefined> {
+  client: Client;
+  context: T;
+}
+
+export interface IEventCog<T> {
+  eventHandler(args: EventHandlerArgs<T>): Promise<void>;
 }
 
 export class EventCog<T = undefined> implements IEventCog<T> {
@@ -12,8 +17,13 @@ export class EventCog<T = undefined> implements IEventCog<T> {
 
     this.client = client;
 
-    this.client.on(eventName, this.eventHandler);
+    this.client.on(eventName, (event) =>
+      this.eventHandler({
+        client,
+        context: event,
+      })
+    );
   }
 
-  async eventHandler(args: { client: Client<boolean>; context?: T }) {}
+  async eventHandler(args: EventHandlerArgs<T>): Promise<void> {}
 }
