@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  dynamodb-local:
+    container_name: stash-bot-dynamodb
+    image: "amazon/dynamodb-local:latest"
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+
+  bot:
+    container_name: stash-bot-bot
+    image: node:14
+    depends_on:
+      - dynamodb-local
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./bot/.env
+    working_dir: /srv/bot
+    volumes:
+      - .:/srv/bot
+    command: yarn workspace bot dev

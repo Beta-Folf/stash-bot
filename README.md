@@ -5,7 +5,7 @@ The Discord bot for the stash Discord server
 ## Table of Contents
 
 1. [Ideas](#ideas)
-2. [Commands](#commands)
+2. [Development](#development)
 
 ## Ideas
 
@@ -16,3 +16,19 @@ The Discord bot for the stash Discord server
   - A user leaves the server. If there are less than (30?) messages in the channel then delete it after 24 hours if they do not rejoin. If there are more messages than that, delete the channel if the user does not rejoin after 7 days.
 - Admin command to check all the channels and purge any ones that meet the deletion criteria
 - Admin command to create a stash for a user if the channels do not exist
+
+## Development
+
+Here are the following steps to get the bot up and running locally for development
+
+1. In `/bot` create a file called `.env`. It should include the following values, you need to get your own values for `CLIENT_ID` and `TOKEN`
+
+```
+CLIENT_ID=<Discord application client ID>
+TOKEN=<Discord bot token>
+DYNAMO_DB_URL=http://dynamodb-local:8000
+```
+
+2. In `/bot`, run `yarn install` to install the node dependencies.
+3. In the root directory (same level as this README) run `docker-compose up --build` to build the docker images and run the database and bot.
+4. To run the application again, just run `docker-compose up`. You don't need to add `--build` to runs except from the first one and ones where you changed the `Dockerfile` in `/bot`, but that Dockerfile should only be used for production deployments anyways.
