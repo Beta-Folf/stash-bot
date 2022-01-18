@@ -14,9 +14,6 @@ export default class OnMessageEvent extends EventCog<Message> {
   async eventHandler(args: EventHandlerArgs<Message>) {
     const { client, context } = args;
 
-    console.log(client);
-    console.log(context);
-
-    Logger.log(context.author.toString());
+    Logger.log(context.author.username);
   }
 }

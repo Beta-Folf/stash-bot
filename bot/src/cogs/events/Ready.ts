@@ -1,6 +1,6 @@
 import { Client } from "discord.js";
 
-import { EventCog } from "~/framework/EventCog";
+import { EventCog, EventHandlerArgs } from "~/framework/EventCog";
 import { Logger } from "~/utils/logger";
 
 export default class ReadyEvent extends EventCog {
@@ -11,7 +11,9 @@ export default class ReadyEvent extends EventCog {
     });
   }
 
-  async eventHandler() {
+  async eventHandler({ client, context }: EventHandlerArgs) {
+    client.user?.setActivity("dick measuring contest", { type: "COMPETING" });
+
     Logger.log("Bot ready!");
   }
 }
