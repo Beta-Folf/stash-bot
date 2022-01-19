@@ -12,7 +12,7 @@ export default class ReadyEvent extends EventCog {
   }
 
   async eventHandler({ client, context }: EventHandlerArgs) {
-    client.user?.setActivity("dick measuring contest", { type: "COMPETING" });
+    client.user?.setActivity("a dick measuring contest", { type: "COMPETING" });
 
     Logger.log("Bot ready!");
   }
