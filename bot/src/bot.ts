@@ -63,9 +63,15 @@ function loadCogs(baseDirectory: string) {
             throw new Error("Cog is not an event or command");
           }
 
-          Logger.info(`Successfully loaded event cog ${file}`);
+          Logger.info({
+            message: `Successfully loaded event cog ${file}`,
+            category: LOGGER_CATEGORY.COMMAND,
+          });
         } catch (error) {
-          Logger.error(`Failed to load cog ${file}. ${error}`);
+          Logger.info({
+            message: `Failed to load cog ${file}. ${error}`,
+            category: LOGGER_CATEGORY.COMMAND,
+          });
         }
       } else if ([".tsx", ".jsx"].includes(fileExtension.toLowerCase())) {
         Logger.error({
