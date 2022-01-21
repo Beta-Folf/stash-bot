@@ -28,7 +28,6 @@ export async function getUserIDFromMention({
     return null;
   }
 
-  // Check length
   return valueWithoutDecorations;
 }
 export async function getChannelIDFromLink({
@@ -54,6 +53,5 @@ export async function getChannelIDFromLink({
     return null;
   }
 
-  // Check length
   return valueWithoutDecorations;
 }
