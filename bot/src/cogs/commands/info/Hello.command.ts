@@ -1,7 +1,7 @@
 import {
   CommandCog,
-  COMMAND_ARG_TYPE,
   CommandRunArgs,
+  COMMAND_ARG_TYPE,
 } from "~/framework/CommandCog";
 
 export default class Hello extends CommandCog {
