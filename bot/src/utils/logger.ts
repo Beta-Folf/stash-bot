@@ -1,42 +1,84 @@
+import { User } from "discord.js";
 import { DateTime } from "luxon";
 
-enum LEVEL {
-  INFO = "log",
+enum LOGGER_LEVEL {
+  INFO = "info",
   WARN = "warn",
   ERROR = "error",
 }
 
+export enum LOGGER_CATEGORY {
+  COMMAND = "COMMAND",
+  EVENT = "EVENT",
+  BACKGROUND_JOB = "JOB",
+}
+
+type Message =
+  | {
+      message: string;
+      user?: User;
+      category?: LOGGER_CATEGORY;
+    }
+  | string;
+
 class LoggerClass {
-  private logMessage({ level, message }: { level: LEVEL; message: string }) {
+  private logMessage({
+    level,
+    message,
+  }: {
+    level: LOGGER_LEVEL;
+    message: Message;
+  }) {
     const now = DateTime.now()
       .toUTC()
       .toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS);
 
-    const msg = `[${level.toUpperCase()}] [${now}] - ${message}`;
+    let messageContents = "";
+    let messageCategory = "";
+
+    if (typeof message === "object") {
+      const { category, user } = message;
+
+      if (category) {
+        messageCategory += `[${category}] `;
+      }
+
+      if (user) {
+        messageContents += `[${user.id} | ${user.username}#${user.discriminator}] `;
+      }
+
+      messageContents += message.message;
+    } else {
+      messageContents = message;
+    }
+
+    const msg = `[${level.toUpperCase()}] ${
+      messageCategory || ""
+    }[${now}] ${messageContents}`;
 
     console[level](msg);
   }
-  log(message: string) {
+  log(message: Message) {
     this.logMessage({
-      level: LEVEL.INFO,
+      level: LOGGER_LEVEL.INFO,
       message,
     });
   }
-  info(message: string) {
+  info(message: Message) {
     this.logMessage({
-      level: LEVEL.INFO,
+      level: LOGGER_LEVEL.INFO,
       message,
     });
   }
-  warn(message: string) {
+  warn(message: Message) {
     this.logMessage({
-      level: LEVEL.WARN,
+      level: LOGGER_LEVEL.WARN,
       message,
     });
   }
-  error(message: string) {
+  error(message: Message) {
     this.logMessage({
-      level: LEVEL.ERROR,
+      level: LOGGER_LEVEL.ERROR,
       message,
     });
   }
