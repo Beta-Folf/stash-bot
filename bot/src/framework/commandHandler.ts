@@ -185,7 +185,7 @@ export async function checkCommandExecution(args: {
                   }
                   break;
                 case COMMAND_ARG_TYPE.BOOLEAN:
-                  // Check if the value is true/false, yes/no, or y/n
+                  // Check if the value is true/false, t/f, yes/no, or y/n
                   const val = splitLowercaseMessageWithoutPrefix[index];
 
                   if (splitLowercaseMessageWithoutPrefix[index]) {
@@ -271,7 +271,6 @@ export async function checkCommandExecution(args: {
           message: error,
         });
       } else {
-        // Run the command
         return {
           run,
           runArgs,
