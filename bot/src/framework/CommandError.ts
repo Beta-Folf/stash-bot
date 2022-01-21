@@ -15,7 +15,7 @@ export enum ARGUMENT_VALIDATION_ERRORS {
   GENERAL_INVALID = "GENERAL_INVALID",
 }
 
-export const HUMAN_READABLE_ARGUMENT_VALIDATION_ERRORS = {
+export const FURRY_READABLE_ARGUMENT_VALIDATION_ERRORS = {
   // Command execution checks
   MISSING_PERMISSIONS:
     "You don't have the necessary permissions to use this command!",

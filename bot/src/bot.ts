@@ -4,7 +4,7 @@ import path from "path";
 
 import { ImportedCommandCog } from "~/framework/CommandCog";
 import {
-  HUMAN_READABLE_ARGUMENT_VALIDATION_ERRORS,
+  FURRY_READABLE_ARGUMENT_VALIDATION_ERRORS,
   ARGUMENT_VALIDATION_ERRORS,
 } from "~/framework/CommandError";
 import { checkCommandExecution } from "~/framework/commandHandler";
@@ -101,7 +101,7 @@ bot.on("messageCreate", async (message: Message) => {
   } catch (error) {
     if (error instanceof CommandError) {
       await message.reply(
-        HUMAN_READABLE_ARGUMENT_VALIDATION_ERRORS[error.message]
+        FURRY_READABLE_ARGUMENT_VALIDATION_ERRORS[error.message]
       );
 
       if (!ARGUMENT_VALIDATION_ERRORS[error.message]) {
