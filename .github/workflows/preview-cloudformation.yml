@@ -16,7 +16,8 @@ jobs:
 
       - name: Preview Cloudformation
         run: |
-          aws deploy \
-          --template-file ./cloudformation/application.yml \
+          aws cloudformation deploy \
+          --template-file ./cloudformation/main.yml \
           --stack-name stash-bot \
-          --no-execute-changeset
+          --no-execute-changeset \
+          --capabilities CAPABILITY_NAMED_IAM

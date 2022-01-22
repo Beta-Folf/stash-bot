@@ -1,0 +1,39 @@
+Resources:
+  ECSTask:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+        - Name: "stash-bot"
+          Image: "amazon/amazon-ecs-sample" # TODO: Parameter from CodeBuild
+          Cpu: 1024 # t2.micro has 1 vCPU (1 * 1,024 = 1,024)
+          Memory: 1024 #t2.micro has 1024MB of ram
+          Essential: true
+
+  ECSService:
+    Type: AWS::ECS::Service
+    Properties:
+      LaunchType: "EC2"
+      SchedulingStrategy: "REPLICA"
+      DesiredCount: 1,
+      TaskDefinition: !Ref ECSTask
+
+  ECSCapacityProvider:
+    Type: AWS::ECS::CapacityProvider
+    Properties:
+      Name: "stash-bot-ecs-capacity-provider"
+      AutoScalingGroupProvider:
+        AutoScalingGroupArn: !ImportValue "stash-bot-auto-scaling-group"
+
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: "stash-bot-ecs-cluster"
+      CapacityProviders:
+        - !GetAtt ECSCapacityProvider.Name
+
+Outputs:
+  ECS:
+    Description: "The ECS cluster to deploy the bot to"
+    Value: !Ref ECSCluster
+    Export:
+      Name: "stash-bot-ecs-cluster"

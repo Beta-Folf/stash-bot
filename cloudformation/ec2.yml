@@ -1,0 +1,42 @@
+Resources:
+  EC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: The security group for the stash bot EC2 instances
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-08e4e35cccc6189f4 # Amazon linux x86
+      InstanceType: t2.micro
+      SecurityGroupIds:
+        - !Ref EC2SecurityGroup
+      UserData: !Base64 |
+        #!/bin/bash -ex
+        yum install -y httpd
+        systemctl start httpd.service
+        systemctl enable httpd.service
+        echo “Hello World from $(hostname -f)” > /var/www/html/index.html
+
+  AutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      MinSize: "1"
+      MaxSize: "1"
+      InstanceId: !Ref EC2Instance
+
+Outputs:
+  AutoScalingGroup:
+    Description: "The EC2 auto scaling group to use for ECS"
+    Value: !Ref AutoScalingGroup
+    Export:
+      Name: "stash-bot-auto-scaling-group"

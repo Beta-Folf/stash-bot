@@ -1,0 +1,137 @@
+Resources:
+  #
+  # IAM
+  #
+  GitHubOIDC:
+    Type: AWS::IAM::OIDCProvider
+    Properties:
+      Url: https://token.actions.githubusercontent.com
+      ThumbprintList:
+        - a031c46782e6e6c662c2c87c76da9aa62ccabd8e
+      ClientIdList:
+        - sts.amazonaws.com
+
+  CloudformationDeploymentRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: github-oidc-role
+      MaxSessionDuration: 3600
+      Policies:
+        - PolicyName: inline
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - sts:AssumeRoleWithWebIdentity
+                Resource:
+                  - "*"
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRoleWithWebIdentity
+            Principal:
+              Federated: !Ref GitHubOIDC
+            Condition:
+              StringLike:
+                token.actions.githubusercontent.com:sub: repo:Beta-Folf/stash-bot:ref:refs/heads/main
+
+  ECRUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: stash-bot-ecr
+
+  #
+  # Networking
+  #
+  StashBotVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: "172.31.0.0/16"
+      EnableDnsSupport: "true"
+      EnableDnsHostnames: "true"
+
+  EC2Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: !GetAtt StashBotVPC.CidrBlock
+      AvailabilityZone: "us-east-1a"
+      VpcId:
+        Ref: StashBotVPC
+
+  #
+  # s3
+  #
+  CodePipelineArtifacts:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: Private
+      BucketName: stash-bot-code-pipeline-artifacts
+
+  #
+  # EC2
+  #
+  EC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: The security group for the stash bot EC2 instances
+      VpcId:
+        Ref: StashBotVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-08e4e35cccc6189f4 # Amazon linux x86
+      InstanceType: t2.micro
+      SecurityGroupIds:
+        - !Ref EC2SecurityGroup
+      SubnetId: !Ref EC2Subnet
+      UserData: !Base64 |
+        #!/bin/bash -ex
+        yum install -y httpd
+        systemctl start httpd.service
+        systemctl enable httpd.service
+        echo “Hello World from $(hostname -f)” > /var/www/html/index.html
+
+  AutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      MinSize: "1"
+      MaxSize: "1"
+      InstanceId: !Ref EC2Instance
+      AvailabilityZones:
+        - "us-east-1a"
+      VPCZoneIdentifier:
+        - !Ref EC2Subnet
+
+  #
+  # ECR
+  #
+  ECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: "stash-bot-ecr-repository"
+      RepositoryPolicyText:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowPushPull
+            Effect: Allow
+            Principal:
+              AWS: !GetAtt ECRUser.Arn
+            Action:
+              - "ecr:GetDownloadUrlForLayer"
+              - "ecr:BatchGetImage"
+              - "ecr:BatchCheckLayerAvailability"
+              - "ecr:PutImage"
+              - "ecr:InitiateLayerUpload"
+              - "ecr:UploadLayerPart"
+              - "ecr:CompleteLayerUpload"

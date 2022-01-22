@@ -30,9 +30,10 @@ jobs:
 
       - name: Deploy Cloudformation
         run: |
-          aws deploy \
-          --template-file ./cloudformation/application.yml \
-          --stack-name stash-bot
+          aws cloudformation deploy \
+          --template-file ./cloudformation/main.yml \
+          --stack-name stash-bot \
+          --capabilities CAPABILITY_NAMED_IAM
 
       - name: Update Deployment Status
         uses: bobheadxi/deployments@v0.4.3
