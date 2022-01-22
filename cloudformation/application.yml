@@ -1,0 +1,96 @@
+Resources:
+  # DynamoDB
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#aws-resource-dynamodb-table--examples
+  # SettingsTable:
+  #   Type: AWS::DynamoDB::Table
+  #   Properties:
+  #     AttributeDefinitions:
+  #       -
+  #         attribute definition
+  #     GlobalSecondaryIndexes:
+  #       -
+  #         global secondary indexes
+  #     LocalSecondaryIndexes:
+  #       -
+  #         local secondary indexes
+  #     KeySchema:
+  #       -
+  #         key schema
+  #     ProvisionedThroughput:
+  #       ReadCapacityUnits: "5"
+  #       WriteCapacityUnits: "5"
+  #     TableName: settings
+  #     Tags:
+  #       - Key: key
+  #         Value: value
+
+  # CodePipeline IAM Policy
+  # CodePipelineIAMPolicy:
+  #   Type: AWS::IAM::Policy
+  #   Properties:
+  #     PolicyName: stash-bot-code-pipeline-iam-policy
+  #     PolicyDocument:
+  # TODO: Generate policy document
+
+  # IAM Roles
+  CodePipelineIAMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Policies:
+        - !Ref CodePipelineIAMPolicy
+
+  # IAM Users
+  ECRIAMUser:
+    Type: AWS::IAM::User
+
+  # S3
+  CodePipelineArtifacts:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: Private
+      BucketName: stash-bot-code-pipeline-artifacts
+
+  # ECR
+  ECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: "stash-bot-ecr-repository"
+      RepositoryPolicyText:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowPushPull
+            Effect: Allow
+            Principal:
+              AWS:
+                - !Ref ECRIAMUser
+            Action:
+              - "ecr:GetDownloadUrlForLayer"
+              - "ecr:BatchGetImage"
+              - "ecr:BatchCheckLayerAvailability"
+              - "ecr:PutImage"
+              - "ecr:InitiateLayerUpload"
+              - "ecr:UploadLayerPart"
+              - "ecr:CompleteLayerUpload"
+
+  # CodePipeline
+  # CodePipeline:
+  #   Type: AWS::CodePipeline::Pipeline
+  #   Properties:
+  #     Name: stash-bot-code-pipeline
+  #     RoleArn: !Ref CodePIp
+  #     ArtifactStore:
+  #       Type: S3
+  #       Location:
+  #     Stages:
+  #       - Name: name
+  #         Actions:
+  #           - actions
+  #         Blockers:
+  #           - blockers
+  #     RestartExecutionOnUpdate: false
+
+  # ECR
+
+  # EC2
+
+  # ECS

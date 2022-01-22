@@ -16,7 +16,7 @@ jobs:
         with:
           ref: ${{ github.event.inputs.commit-hash }}
 
-      - name: Start deployment
+      - name: Start Deployment
         uses: bobheadxi/deployments@v0.4.3
         id: deployment
         with:
@@ -26,7 +26,7 @@ jobs:
 
       # Insert your project-specific deployment steps here
 
-      - name: Update deployment status
+      - name: Update Deployment Status
         uses: bobheadxi/deployments@v0.4.3
         if: always()
         with:

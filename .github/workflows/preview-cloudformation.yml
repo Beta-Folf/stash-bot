@@ -1,0 +1,22 @@
+name: Preview Cloudformation
+
+on: [workflow_dispatch]
+
+jobs:
+  preview-cloudformation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_CLI_CLOUDFORMATION_ROLE }}
+          aws-region: us-east-1
+
+      - name: Preview Cloudformation
+        run: |
+          aws deploy \
+          --template-file ./cloudformation/application.yml \
+          --stack-name stash-bot \
+          --no-execute-changeset
