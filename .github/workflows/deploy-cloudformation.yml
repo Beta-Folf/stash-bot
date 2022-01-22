@@ -1,0 +1,16 @@
+name: Deploy Cloudformation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "cloudformation/**"
+  workflow_dispatch:
+
+jobs:
+  deploy-cloudformation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        # TODO: Set the base to be the cloudformation directory
