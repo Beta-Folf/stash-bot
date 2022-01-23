@@ -8,6 +8,10 @@ on:
       - "bot/**"
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   release-please:
     runs-on: ubuntu-latest

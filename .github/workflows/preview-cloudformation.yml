@@ -2,6 +2,10 @@ name: Preview Cloudformation
 
 on: [workflow_dispatch]
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   preview-cloudformation:
     runs-on: ubuntu-latest

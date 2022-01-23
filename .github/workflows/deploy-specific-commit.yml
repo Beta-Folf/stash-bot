@@ -7,6 +7,10 @@ on:
         description: Commit hash
         required: true
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   deploy-specific-commit-to-production:
     name: Deploy Commit Hash
