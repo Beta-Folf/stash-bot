@@ -5,9 +5,6 @@ on: [workflow_dispatch]
 jobs:
   build-docker-image:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
     steps:
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -16,11 +13,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
 
       - name: Start Deployment
         uses: bobheadxi/deployments@v0.6.2
@@ -32,12 +24,6 @@ jobs:
 
       # Build application
       - run: cd ./bot
-
-      - name: Install yarn dependencies
-        run: yarn install --frozen-lockfile'
-
-      - name: Build application
-        run: yarn build
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
