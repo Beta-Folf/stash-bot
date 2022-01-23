@@ -50,6 +50,8 @@ Resources:
       CidrBlock: "172.31.0.0/16"
       EnableDnsSupport: "true"
       EnableDnsHostnames: "true"
+      Tags:
+        Name: stash-bot-vpc
 
   EC2Subnet:
     Type: AWS::EC2::Subnet
@@ -58,6 +60,8 @@ Resources:
       AvailabilityZone: "us-east-1a"
       VpcId:
         Ref: StashBotVPC
+      Tags:
+        Name: stash-bot-subnet
 
   #
   # s3
@@ -67,6 +71,8 @@ Resources:
     Properties:
       AccessControl: Private
       BucketName: stash-bot-code-pipeline-artifacts
+    Tags:
+      Name: stash-bot-codepipeline-artifacts-bucket
 
   #
   # EC2
@@ -74,6 +80,7 @@ Resources:
   EC2SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
+      GroupName: stash-bot-ec2-sg
       GroupDescription: The security group for the stash bot EC2 instances
       VpcId:
         Ref: StashBotVPC
@@ -87,27 +94,25 @@ Resources:
           ToPort: 443
           CidrIp: 0.0.0.0/0
 
-  EC2Instance:
-    Type: AWS::EC2::Instance
+  EC2LaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
     Properties:
-      ImageId: ami-08e4e35cccc6189f4 # Amazon linux x86
-      InstanceType: t2.micro
-      SecurityGroupIds:
-        - !Ref EC2SecurityGroup
-      SubnetId: !Ref EC2Subnet
-      UserData: !Base64 |
-        #!/bin/bash -ex
-        yum install -y httpd
-        systemctl start httpd.service
-        systemctl enable httpd.service
-        echo “Hello World from $(hostname -f)” > /var/www/html/index.html
+      LaunchTemplateName: stash-bot-ec2-launch-template
+      LaunchTemplateData:
+        ImageId: ami-08e4e35cccc6189f4 # Amazon linux x86
+        InstanceType: t2.micro
+        SecurityGroupIds:
+          - !Ref EC2SecurityGroup
 
   AutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
+      AutoScalingGroupName: stash-bot-asg
       MinSize: "1"
       MaxSize: "1"
-      InstanceId: !Ref EC2Instance
+      LaunchTemplate:
+        LaunchTemplateId: !Ref EC2LaunchTemplate
+        Version: !GetAtt EC2LaunchTemplate.LatestVersionNumber
       AvailabilityZones:
         - "us-east-1a"
       VPCZoneIdentifier:
@@ -119,7 +124,7 @@ Resources:
   ECRRepository:
     Type: AWS::ECR::Repository
     Properties:
-      RepositoryName: "stash-bot-ecr-repository"
+      RepositoryName: stash-bot-ecr-repository
       RepositoryPolicyText:
         Version: "2012-10-17"
         Statement:
