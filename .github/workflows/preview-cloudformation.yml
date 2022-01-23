@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v1.6.1
         with:
           role-to-assume: ${{ secrets.AWS_CLI_CLOUDFORMATION_ROLE }}
           aws-region: us-east-1
