@@ -15,10 +15,6 @@ export default class Femboy extends CommandCog {
 
     const femboyUser = await client.users.fetch(USERS.SYMFIZ);
 
-    if (femboyUser) {
-      await context.channel.send(`<@${femboyUser.id}>`);
-    } else {
-      throw new Error(`User with the ID of ${USERS.SYMFIZ} was not found`);
-    }
+    await context.channel.send(`<@${femboyUser.id}>`);
   }
 }

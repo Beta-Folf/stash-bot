@@ -8,9 +8,10 @@
     "strict": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./src/*"],
+      "@packagejson": ["./package.json"]
     },
     "typeRoots": ["./@types"]
   },
