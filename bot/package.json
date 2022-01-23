@@ -21,6 +21,7 @@
   "dependencies": {
     "discord.js": "^13.6.0",
     "dynamoose": "^2.8.5",
-    "luxon": "^2.3.0"
+    "luxon": "^2.3.0",
+    "pretty-ms": "^7.0.1"
   }
 }
