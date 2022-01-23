@@ -18,7 +18,7 @@ export const getUserTagAndAvatarURL = async (args: {
       avatarURL,
     };
   } else {
-    throw new Error(`Failed to get owner information with the ID ${userId}`);
+    throw new Error(`Failed to get user information with the ID ${userId}`);
   }
 };
 
