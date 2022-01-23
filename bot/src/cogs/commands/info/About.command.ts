@@ -23,11 +23,6 @@ export default class About extends CommandCog {
   async run(args: CommandRunArgs) {
     const { client, context } = args;
 
-    // Author
-    // Version
-    // Written in
-    // Deployed on
-    // GitHub repository link
     const { tag: authorTag } = await getUserTagAndAvatarURL({
       client,
       userId: CONFIG.OWNER_ID,
