@@ -7,7 +7,7 @@ Resources:
     Properties:
       Url: https://token.actions.githubusercontent.com
       ThumbprintList:
-        - a031c46782e6e6c662c2c87c76da9aa62ccabd8e
+        - 6938fd4d98bab03faadb97b34396831e3780aea1
       ClientIdList:
         - sts.amazonaws.com
 
@@ -50,8 +50,6 @@ Resources:
       CidrBlock: "172.31.0.0/16"
       EnableDnsSupport: "true"
       EnableDnsHostnames: "true"
-      Tags:
-        Name: stash-bot-vpc
 
   EC2Subnet:
     Type: AWS::EC2::Subnet
@@ -60,8 +58,6 @@ Resources:
       AvailabilityZone: "us-east-1a"
       VpcId:
         Ref: StashBotVPC
-      Tags:
-        Name: stash-bot-subnet
 
   #
   # s3
@@ -71,8 +67,6 @@ Resources:
     Properties:
       AccessControl: Private
       BucketName: stash-bot-code-pipeline-artifacts
-    Tags:
-      Name: stash-bot-codepipeline-artifacts-bucket
 
   #
   # EC2
