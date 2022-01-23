@@ -1,9 +1,9 @@
-name: Release Please
+name: Build Docker Image
 
 on: [workflow_dispatch]
 
 jobs:
-  release-please:
+  build-docker-image:
     runs-on: ubuntu-latest
     strategy:
       matrix:
