@@ -38,22 +38,26 @@ export default class FakeUser extends CommandCog {
       );
     }
 
-    const { username, avatarURL } = userData;
+    const { username } = userData;
 
     await context.delete();
 
-    const webhook = await (context.channel as TextChannel).createWebhook(
-      username,
-      {
-        avatar: avatarURL({
-          format: "png",
-        }),
-      }
-    );
+    try {
+      const webhook = await (context.channel as TextChannel).createWebhook(
+        username,
+        {
+          avatar: userData.avatarURL({
+            format: "png",
+          }),
+        }
+      );
 
-    await webhook.send({
-      content: messageAsString,
-    });
-    await webhook.delete();
+      await webhook.send({
+        content: messageAsString,
+      });
+      await webhook.delete();
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
