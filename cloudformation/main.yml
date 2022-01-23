@@ -24,6 +24,7 @@ Resources:
               - Effect: Allow
                 Action:
                   - sts:AssumeRoleWithWebIdentity
+                  - cloudformation:*
                 Resource:
                   - "*"
       AssumeRolePolicyDocument:
