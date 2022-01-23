@@ -16,7 +16,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - uses: actions/checkout@v2
-        if: ${{ steps.release.outputs.release_created }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -33,25 +32,20 @@ jobs:
 
       # Build application
       - run: cd ./bot
-        if: ${{ steps.release.outputs.release_created }}
 
       - name: Install yarn dependencies
-        if: ${{ steps.release.outputs.release_created }}
         run: yarn install --frozen-lockfile'
 
       - name: Build application
-        if: ${{ steps.release.outputs.release_created }}
         run: yarn build
 
       - name: Extract metadata (tags, labels) for Docker
-        if: ${{ steps.release.outputs.release_created }}
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: betafolf/stash-bot
 
       - name: Build and push Docker image
-        if: ${{ steps.release.outputs.release_created }}
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
@@ -61,7 +55,6 @@ jobs:
 
       - name: Update Deployment Status
         uses: bobheadxi/deployments@v0.6.2
-        if: ${{ always() && steps.release.outputs.release_created }}
         with:
           step: finish
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
