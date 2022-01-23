@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.0.0...v1.1.0) (2022-01-23)
+
+
+### Features
+
+* about command ([5adcd1e](https://www.github.com/Beta-Folf/stash-bot/commit/5adcd1e2bd3a73aa809e1b40a3ec1303e2d4d6a3))
+* author command ([9bb64a1](https://www.github.com/Beta-Folf/stash-bot/commit/9bb64a1a6f099b58b0aef46e56048a72c9610eb5))
+* femboy command ([71e1b36](https://www.github.com/Beta-Folf/stash-bot/commit/71e1b36a9899539aaa3bfa4fa087408e3b669668))
+* ping command ([8d7c5f8](https://www.github.com/Beta-Folf/stash-bot/commit/8d7c5f806c277089139f918fb729122135879a56))
+* uptime command ([588e7ff](https://www.github.com/Beta-Folf/stash-bot/commit/588e7ffab432543c80697c36046064b16a52f3b4))
+
 ## 1.0.0 (2022-01-23)
 
 
