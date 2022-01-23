@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.1.0...v1.2.0) (2022-01-23)
+
+
+### Features
+
+* fakeuser command ([d05bcc6](https://www.github.com/Beta-Folf/stash-bot/commit/d05bcc60dd35ad142fc6242415eab28dc19b1ae3))
+
 ## [1.1.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.0.0...v1.1.0) (2022-01-23)
 
 
