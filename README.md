@@ -26,7 +26,6 @@ Here are the following steps to get the bot up and running locally for developme
 1. In `/bot` create a file called `.env`. It should include the following values, you need to get your own values for `CLIENT_ID` and `TOKEN`
 
 ```
-CLIENT_ID=<Discord application client ID>
 TOKEN=<Discord bot token>
 DYNAMO_DB_URL=http://dynamodb-local:8000
 ```

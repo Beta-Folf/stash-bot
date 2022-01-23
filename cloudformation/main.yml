@@ -1,5 +1,11 @@
 Resources:
   #
+  # ========================
+  # Infrastructure
+  # ========================
+  #
+
+  #
   # IAM
   #
   GitHubOIDC:
@@ -37,10 +43,34 @@ Resources:
               StringLike:
                 token.actions.githubusercontent.com:sub: repo:Beta-Folf/stash-bot:ref:refs/heads/main
 
+  CodePipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: stash-bot-code-pipeline
+      ManagedPolicyArns:
+        - !Ref AmazonEC2ContainerRegistryPowerUser
+
+  ECRRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: stash-bot-ecr-role
+      Policies:
+        - PolicyName: inline
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                  - kms:Decrypt
+                Resource:
+                  - "*"
+
   ECRUser:
     Type: AWS::IAM::User
     Properties:
       UserName: stash-bot-ecr
+      # TODO: Give secrets permissions - https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-secrets.html#secrets-iam
 
   #
   # Networking
@@ -61,13 +91,19 @@ Resources:
         Ref: StashBotVPC
 
   #
-  # s3
+  # S3
   #
-  CodePipelineArtifacts:
+  CodePipelineSourceArtifacts:
     Type: AWS::S3::Bucket
     Properties:
       AccessControl: Private
-      BucketName: stash-bot-code-pipeline-artifacts
+      BucketName: stash-bot-code-pipeline-source-artifacts
+
+  CodeBuildArtifacts:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: Private
+      BucketName: stash-bot-code-build-artifacts
 
   #
   # EC2
@@ -126,7 +162,7 @@ Resources:
           - Sid: AllowPushPull
             Effect: Allow
             Principal:
-              AWS: !GetAtt ECRUser.Arn
+              AWS: !GetAtt ECRUser.Arn # TODO: Try !Ref instead
             Action:
               - "ecr:GetDownloadUrlForLayer"
               - "ecr:BatchGetImage"
@@ -135,3 +171,91 @@ Resources:
               - "ecr:InitiateLayerUpload"
               - "ecr:UploadLayerPart"
               - "ecr:CompleteLayerUpload"
+
+  #
+  # ECS
+  #
+  # ECSService:
+  #   Type: AWS::ECS::Service
+  #   Properties:
+  #
+  # ========================
+  # Deployment
+  # ========================
+  #
+
+  #
+  # Secrets
+  #
+  DiscordToken:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: stash-bot-discord-token
+
+  #
+  # CodeBuild
+  #
+  CodeBuild:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: stash-bot-code-build
+      Artifacts:
+        Type: "CODEPIPELINE"
+
+  #
+  # CodePipeline
+  #
+  CodePipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      ArtifactStore:
+        Type: S3
+        Location: !Ref CodePipelineSourceArtifacts
+      RestartExecutionOnUpdate: true
+      RoleArn: !GetAtt CodePipelineRole.Arn
+      Stages:
+        # Pull from GitHub
+        - Name: Source
+          Actions:
+            - Name: Source
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Version: 1
+                Provider: GitHub
+              OutputArtifacts:
+                - Name: SourceCode
+              Configuration:
+                Owner: Beta-Folf
+                Repo: git@github.com:Beta-Folf/stash-bot.git
+                Branch: main
+                PollForSourceChanges: false
+                OAuthToken: !Ref GitHubOAuthToken # TODO: Secret value
+              RunOrder: 1
+        # Build application and Docker image
+        - Name: Build
+          Actions:
+            - Name: Build
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CloudFormation
+                Version: "1"
+        # Deploy
+        - Name: Deploy
+          Actions:
+            - Name: Deploy
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFormation
+                Version: "1"
+              InputArtifacts:
+                - Name: SourceCode
+              Configuration:
+                ActionMode: CREATE_UPDATE
+                Capabilities: CAPABILITY_IAM
+                RoleArn: !GetAtt CloudformationRole.Arn
+                StackName: !Ref ApplicationStackName
+                TemplatePath: !Sub "SourceCode::application.yaml"
+              RunOrder: 1
