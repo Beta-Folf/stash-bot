@@ -8,13 +8,12 @@ on:
       - "bot/**"
   workflow_dispatch:
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: GoogleCloudPlatform/release-please-action@v2
         id: release
