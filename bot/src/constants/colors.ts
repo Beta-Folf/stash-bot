@@ -1,4 +1,5 @@
 export const EMBED_COLORS = {
+  BETA_BLUE: 0x004279c2,
   BLURPLE: 0x005865f2,
   GREEN: 0x0057f287,
   YELLOW: 0x00fee75c,
