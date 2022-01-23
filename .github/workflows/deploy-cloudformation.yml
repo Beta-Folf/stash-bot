@@ -17,19 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Test
-        run: |
-          echo "$GITHUB_TOKEN"
-        shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Start Cloudformation Deployment
         uses: bobheadxi/deployments@v0.6.2
         id: deployment
         with:
           step: start
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           env: AWS
 
       - name: Configure AWS Credentials
@@ -50,6 +43,6 @@ jobs:
         if: always()
         with:
           step: finish
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
