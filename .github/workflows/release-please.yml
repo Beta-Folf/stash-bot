@@ -31,6 +31,7 @@ jobs:
       - name: Start Deployment
         uses: bobheadxi/deployments@v0.6.2
         id: deployment
+        if: ${{ always() && steps.release.outputs.release_created }}
         with:
           step: start
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
