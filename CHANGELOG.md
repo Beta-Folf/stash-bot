@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.2.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.2.0...v1.2.1) (2022-01-24)
+
+
+### Bug Fixes
+
+* fix crash from fakeuser command ([c66acab](https://www.github.com/Beta-Folf/stash-bot/commit/c66acab749ba2de63c7797791de2e4133f3c224d))
+
 ## [1.2.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.1.0...v1.2.0) (2022-01-23)
 
 
