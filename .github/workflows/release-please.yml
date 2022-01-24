@@ -9,6 +9,10 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+
+      - run: cd ./bot
+
       - uses: GoogleCloudPlatform/release-please-action@v2
         id: release
         with:
@@ -21,9 +25,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - uses: actions/checkout@v2
-        if: ${{ steps.release.outputs.release_created }}
-
       - name: Start Deployment
         uses: bobheadxi/deployments@v0.6.2
         id: deployment
@@ -32,10 +33,6 @@ jobs:
           step: start
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           env: production
-
-      # Build application
-      - run: cd ./bot
-        if: ${{ steps.release.outputs.release_created }}
 
       - name: Extract metadata (tags, labels) for Docker
         if: ${{ steps.release.outputs.release_created }}
