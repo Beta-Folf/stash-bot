@@ -13,7 +13,6 @@ jobs:
         id: release
         with:
           release-type: node
-          path: ./bot
           package-name: stash-bot
 
       - name: Log in to Docker Hub
