@@ -14,6 +14,9 @@ jobs:
         with:
           token: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
 
+      - name: Log into Digital Ocean Container Registry
+        run: doctl registry login
+
       - uses: actions/checkout@v2
 
       - uses: GoogleCloudPlatform/release-please-action@v2
