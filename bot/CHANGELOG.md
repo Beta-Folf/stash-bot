@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.3.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.3.0...v1.3.1) (2022-01-25)
+
+
+### Bug Fixes
+
+* update about description ([185be28](https://www.github.com/Beta-Folf/stash-bot/commit/185be28da9c5f6d94e84b61fee400b8ef23c3e57))
+
 ## [1.3.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.2.1...v1.3.0) (2022-01-25)
 
 
