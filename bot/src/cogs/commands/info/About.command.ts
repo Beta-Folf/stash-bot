@@ -53,7 +53,7 @@ export default class About extends CommandCog {
         },
         {
           name: "Deployed on",
-          value: "AWS EC2 for hosting the bot and DynamoDB for the database",
+          value: "Digital Ocean droplet",
         },
       ],
     });
