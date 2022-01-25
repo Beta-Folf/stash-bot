@@ -21,7 +21,7 @@ jobs:
         with:
           release-type: node
           package-name: stash-bot
-          path: ./bot
+          path: bot
 
       - name: Start Deployment
         uses: bobheadxi/deployments@v0.6.2
