@@ -36,12 +36,15 @@ jobs:
           env: production
 
       - name: Build Docker Image
+        if: ${{ steps.release.outputs.release_created }}
         run: docker build ./bot -t stash-bot
 
       - name: Tag Docker Image
+        if: ${{ steps.release.outputs.release_created }}
         run: docker tag stash-bot registry.digitalocean.com/stash-bot/bot
 
       - name: Publish Docker Image to Container Registry
+        if: ${{ steps.release.outputs.release_created }}
         run: docker push registry.digitalocean.com/stash-bot/bot
 
       - name: Update Deployment Status
