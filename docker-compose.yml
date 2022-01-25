@@ -1,21 +1,21 @@
 version: "3.8"
 
 services:
-  dynamodb-local:
-    container_name: stash-bot-dynamodb
-    image: "amazon/dynamodb-local:latest"
-    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+  postgres:
+    container_name: "stash-bot-postgres"
+    image: "postgres:11"
     ports:
-      - "8000:8000"
+      - "127.0.0.1:5432:5432"
     volumes:
-      - "./docker/dynamodb:/home/dynamodblocal/data"
-    working_dir: /home/dynamodblocal
+      - "pgdata:/var/lib/postgresql/data/"
+    environment:
+      POSTGRES_PASSWORD: password
 
   bot:
     container_name: stash-bot-bot
     image: node:16
     depends_on:
-      - dynamodb-local
+      - postgres
     ports:
       - "8080:8080"
     env_file:
@@ -24,3 +24,6 @@ services:
     volumes:
       - .:/srv/bot
     command: yarn workspace bot dev
+
+volumes:
+  pgdata: {}

@@ -27,7 +27,6 @@ Here are the following steps to get the bot up and running locally for developme
 
 ```
 TOKEN=<Discord bot token>
-DYNAMO_DB_URL=http://dynamodb-local:8000
 ```
 
 2. In `/bot`, run `yarn install` to install the node dependencies.
