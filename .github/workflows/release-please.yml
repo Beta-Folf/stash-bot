@@ -54,7 +54,7 @@ jobs:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
-          script: docker stop bot && docker pull registry.digitalocean.com/stash-bot/bot:latest && docker run -e TOKEN=$TOKEN -d --name bot registry.digitalocean.com/stash-bot/bot
+          script: docker stop bot && docker rm bot && docker pull registry.digitalocean.com/stash-bot/bot:latest && docker run -e TOKEN=$TOKEN -d --name bot registry.digitalocean.com/stash-bot/bot
 
       - name: Update Deployment Status
         uses: bobheadxi/deployments@v0.6.2
