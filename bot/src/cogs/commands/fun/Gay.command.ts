@@ -2,11 +2,11 @@ import { CommandCog, CommandRunArgs } from "~/framework/CommandCog";
 
 import { USERS } from "~/constants/users";
 
-export default class Sub extends CommandCog {
+export default class Gay extends CommandCog {
   constructor() {
     super({
-      name: "sub",
-      nicks: ["submissive", "breedable", "bottom"],
+      name: "gay",
+      nicks: ["fag", "faggot", "subbyboy"],
       permissions: ["SEND_MESSAGES"],
     });
   }
@@ -14,8 +14,8 @@ export default class Sub extends CommandCog {
   async run(args: CommandRunArgs) {
     const { client, context } = args;
 
-    const subUser = await client.users.fetch(USERS.TOTALLY_A_FOX);
+    const gayUser = await client.users.fetch(USERS.ARTY);
 
-    await context.channel.send(`<@${subUser.id}>`);
+    await context.channel.send(`<@${gayUser.id}>`);
   }
 }
