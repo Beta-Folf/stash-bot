@@ -24,8 +24,6 @@ jobs:
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           env: production
 
-      - run: cd ./bot
-
       - name: SSH into Droplet and Run Bot
         uses: appleboy/ssh-action@master
         with:
