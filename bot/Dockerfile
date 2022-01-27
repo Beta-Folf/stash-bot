@@ -7,8 +7,8 @@ WORKDIR /bot
 COPY yarn.lock ./
 COPY package.json ./
 RUN yarn install --frozen-lockfile
-RUN yarn prisma:generate
 COPY . .
+RUN yarn prisma:generate
 RUN yarn build
 
 # Run
