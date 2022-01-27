@@ -135,3 +135,9 @@ loadCogs(path.join(__dirname, "./cogs"));
 
 // Login once the cogs are all loaded
 bot.login(process.env.TOKEN);
+
+/**
+ * Explicitly handle stopping the bot for ts-node-dev
+ * https://github.com/wclr/ts-node-dev/issues/69#issuecomment-493675960
+ */
+process.on("SIGTERM", () => process.exit());

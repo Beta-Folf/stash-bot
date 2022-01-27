@@ -15,6 +15,38 @@ type CommandExecutionReturnType = Pick<ImportedCommandCog, "run"> & {
 };
 
 /**
+ * Function to check if the given string starts with a prefix
+ * @param message - The text of the message to check
+ * @returns If the message started with a prefix
+ */
+export function messageStartsWithPrefix(message: string): {
+  startsWithPrefix: boolean;
+  prefixUsed?: string;
+} {
+  let prefixUsed: string | undefined = undefined;
+  const startsWithPrefix = CONFIG.PREFIXES.some((prefix) => {
+    // Add one to include the actual command
+    if (message.length < prefix.length + 1) {
+      return false;
+    }
+
+    if (
+      message.toLowerCase().substring(0, prefix.length) === prefix.toLowerCase()
+    ) {
+      prefixUsed = prefix;
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  return {
+    startsWithPrefix,
+    prefixUsed,
+  };
+}
+
+/**
  * Function to be called from the createMessage event to
  * check if the message is a command, check permissions, and
  * parse any argument values if necessary
@@ -26,7 +58,6 @@ export async function checkCommandExecution(args: {
 }): Promise<CommandExecutionReturnType | void> {
   const { client, message, commands } = args;
 
-  let prefixUsed = "";
   let error = "";
 
   const originalMessageContent = message.content;
@@ -36,23 +67,10 @@ export async function checkCommandExecution(args: {
 
   const lowerMessageContent = originalMessageContent.toLowerCase();
 
-  const messageHasPrefix = CONFIG.PREFIXES.some((prefix) => {
-    // Add one to include the actual command
-    if (lowerMessageContent.length < prefix.length + 1) {
-      return false;
-    }
+  const { startsWithPrefix: messageHasPrefix, prefixUsed } =
+    messageStartsWithPrefix(lowerMessageContent);
 
-    if (
-      lowerMessageContent.substring(0, prefix.length) === prefix.toLowerCase()
-    ) {
-      prefixUsed = prefix;
-      return true;
-    } else {
-      return false;
-    }
-  });
-
-  if (messageHasPrefix) {
+  if (messageHasPrefix && prefixUsed) {
     const baseMessageWithoutPrefix = originalMessageContent.substring(
       prefixUsed.length
     );

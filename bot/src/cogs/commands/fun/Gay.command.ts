@@ -1,5 +1,4 @@
 import { CommandCog, CommandRunArgs } from "~/framework/CommandCog";
-
 import { USERS } from "~/constants/users";
 
 export default class Gay extends CommandCog {
