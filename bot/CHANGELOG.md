@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.6.2](https://www.github.com/Beta-Folf/stash-bot/compare/v1.6.1...v1.6.2) (2022-01-27)
+
+
+### Bug Fixes
+
+* move prisma generate command in Dockerfile ([4b9648d](https://www.github.com/Beta-Folf/stash-bot/commit/4b9648d337d029540c5796ffefd0b987c2157bdb))
+
 ### [1.6.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.6.0...v1.6.1) (2022-01-27)
 
 
