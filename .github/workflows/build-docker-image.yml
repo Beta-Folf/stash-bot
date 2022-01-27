@@ -24,12 +24,19 @@ jobs:
 
       - run: cd ./bot
 
-      - name: Build and Push Docker Image
-        id: docker_build
-        uses: docker/build-push-action@v2
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
+          images: betafolf/stash-bot
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ./bot
           push: true
           tags: betafolf/stash-bot:latest
+          labels: ${{ steps.meta.outputs.labels }}
 
       - name: Update Deployment Status
         uses: bobheadxi/deployments@v0.6.2
