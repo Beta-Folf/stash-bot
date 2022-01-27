@@ -9,13 +9,11 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
         with:
-          token: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
-
-      - name: Log into Digital Ocean Container Registry
-        run: doctl registry login
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - uses: actions/checkout@v2
 
@@ -35,17 +33,14 @@ jobs:
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           env: production
 
-      - name: Build Docker Image
-        if: ${{ steps.release.outputs.release_created }}
-        run: docker build ./bot -t stash-bot
+      - run: cd ./bot
 
-      - name: Tag Docker Image
-        if: ${{ steps.release.outputs.release_created }}
-        run: docker tag stash-bot registry.digitalocean.com/stash-bot/bot
-
-      - name: Publish Docker Image to Container Registry
-        if: ${{ steps.release.outputs.release_created }}
-        run: docker push registry.digitalocean.com/stash-bot/bot
+      - name: Build and Push Docker Image
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: betafolf/stash-bot:latest
 
       - name: SSH into Droplet and Run Bot
         if: ${{ steps.release.outputs.release_created }}
@@ -54,7 +49,7 @@ jobs:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
-          script: docker stop bot && docker rm bot && docker pull registry.digitalocean.com/stash-bot/bot:latest && docker run -e TOKEN=${{ secrets.DISCORD_TOKEN }} DATABASE_URL=${{ secrets.DATABASE_URL }} -d --name bot registry.digitalocean.com/stash-bot/bot
+          script: docker stop bot && docker rm bot && docker pull betafolf/stash-bot:latest && docker run -e TOKEN=${{ secrets.DISCORD_TOKEN }} DATABASE_URL=${{ secrets.DATABASE_URL }} -d --name bot betafolf/stash-bot:latest
 
       - name: Update Deployment Status
         uses: bobheadxi/deployments@v0.6.2
