@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.5.0...v1.6.0) (2022-01-27)
+
+
+### Features
+
+* prisma configuration ([3f07580](https://www.github.com/Beta-Folf/stash-bot/commit/3f075801fa82b10f3f65495aac5d997a03800407))
+* sticky message command ([fa88f03](https://www.github.com/Beta-Folf/stash-bot/commit/fa88f03e91633b0228b5ea8053f3ed9e462bad5e))
+
 ## [1.5.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.4.0...v1.5.0) (2022-01-25)
 
 
