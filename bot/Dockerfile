@@ -12,4 +12,4 @@ RUN yarn prisma:generate
 RUN yarn build
 
 # Run
-CMD ["node", "."]
+CMD ["yarn", "start"]

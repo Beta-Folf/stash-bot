@@ -10,7 +10,7 @@
     "start": "yarn prisma:migrate && node .",
     "prisma:generate": "./node_modules/.bin/prisma generate",
     "prisma:db-push": "./node_modules/.bin/prisma db push",
-    "prisma:migrate": "./node_modules/.bin/prisma migrate"
+    "prisma:migrate": "./node_modules/.bin/prisma migrate deploy"
   },
   "devDependencies": {
     "@types/luxon": "^2.0.9",
