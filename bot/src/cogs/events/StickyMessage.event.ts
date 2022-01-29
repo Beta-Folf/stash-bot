@@ -40,8 +40,6 @@ export default class MessageEvent extends EventCog {
       return;
     }
 
-    console.log(message.content);
-
     const stickyMessage = await prisma.stickyMessage.findUnique({
       where: {
         id: channelId,
