@@ -5,6 +5,7 @@ import {
   CommandRunArgs,
   COMMAND_ARG_TYPE,
 } from "~/framework/CommandCog";
+import { Logger } from "~/utils/logger";
 
 export default class FakeUser extends CommandCog {
   constructor() {
@@ -57,7 +58,7 @@ export default class FakeUser extends CommandCog {
       });
       await webhook.delete();
     } catch (error) {
-      console.log(error);
+      Logger.error((error as Error).message);
     }
   }
 }
