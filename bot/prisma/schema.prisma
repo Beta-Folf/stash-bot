@@ -13,7 +13,7 @@ datasource db {
 
 // Schemas
 model StickyMessage {
-  id             String @id // Channel ID
-  messageId      String @unique
+  id             String  @id // Channel ID
+  messageId      String? @unique
   messageContent String
 }

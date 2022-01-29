@@ -13,7 +13,8 @@
       "~/*": ["./src/*"],
       "@packagejson": ["./package.json"]
     },
-    "typeRoots": ["./@types"]
+    "typeRoots": ["./@types"],
+    "sourceMap": true
   },
   "ts-node": {
     "files": true,

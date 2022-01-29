@@ -25,7 +25,7 @@ export default class AddStickyMessage extends CommandCog {
     const { client, context, commandArgs } = args;
     const { messageContent } = commandArgs;
 
-    const { channelId, id: messageId } = context;
+    const { channelId } = context;
 
     const messageContentAsString = messageContent as string;
 
@@ -35,11 +35,9 @@ export default class AddStickyMessage extends CommandCog {
       },
       create: {
         id: channelId,
-        messageId,
         messageContent: messageContentAsString,
       },
       update: {
-        messageId,
         messageContent: messageContentAsString,
       },
     });

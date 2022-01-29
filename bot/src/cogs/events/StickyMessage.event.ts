@@ -5,6 +5,14 @@ import { messageStartsWithPrefix } from "~/framework/commandHandler";
 import { prisma } from "~/utils/db";
 
 export default class MessageEvent extends EventCog {
+  // Locked is used to "lock" the deletion/sending of
+  // the sticky message. This is used in cases
+  // where the message event fires two or more times
+  // when the execution takes longer than the new message
+  // due to a database operation. Locking prevents
+  // the sticky message from being sent twice
+  private locked: boolean = false;
+
   constructor(client: Client) {
     super({
       client,
@@ -16,13 +24,23 @@ export default class MessageEvent extends EventCog {
     const message = context as unknown as Message;
     const { channelId, author } = message;
 
-    if (author.bot) {
+    if (this.locked) {
+      return;
+    }
+
+    this.locked = true;
+
+    if (message.author.id === client?.user?.id) {
+      this.locked = false;
       return;
     }
 
     if (messageStartsWithPrefix(message.content).startsWithPrefix) {
+      this.locked = false;
       return;
     }
+
+    console.log(message.content);
 
     const stickyMessage = await prisma.stickyMessage.findUnique({
       where: {
@@ -34,14 +52,16 @@ export default class MessageEvent extends EventCog {
     if (stickyMessage) {
       const { messageContent, messageId } = stickyMessage;
 
-      let existingMessage: Message | null = null;
+      if (messageId) {
+        try {
+          const existingMessage = await message.channel.messages.fetch(
+            messageId
+          );
 
-      try {
-        existingMessage = await message.channel.messages.fetch(messageId);
-      } catch {}
-
-      if (existingMessage) {
-        await existingMessage.delete();
+          if (existingMessage) {
+            await existingMessage.delete();
+          }
+        } catch (error) {}
       }
 
       const resentMessage = await message.channel.send(messageContent);
@@ -55,5 +75,7 @@ export default class MessageEvent extends EventCog {
         },
       });
     }
+
+    this.locked = false;
   }
 }
