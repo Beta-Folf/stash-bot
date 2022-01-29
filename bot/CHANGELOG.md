@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.6.3](https://www.github.com/Beta-Folf/stash-bot/compare/v1.6.2...v1.6.3) (2022-01-29)
+
+
+### Bug Fixes
+
+* sticky message ([9179738](https://www.github.com/Beta-Folf/stash-bot/commit/9179738dc8b4da5a14144d155632aa98ca504bf0))
+
 ### [1.6.2](https://www.github.com/Beta-Folf/stash-bot/compare/v1.6.1...v1.6.2) (2022-01-27)
 
 
