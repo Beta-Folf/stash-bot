@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.6.4](https://www.github.com/Beta-Folf/stash-bot/compare/v1.6.3...v1.6.4) (2022-01-29)
+
+
+### Bug Fixes
+
+* remove console log ([a864d0d](https://www.github.com/Beta-Folf/stash-bot/commit/a864d0d3169c2e405042c45af98b3b6981f2beeb))
+
 ### [1.6.3](https://www.github.com/Beta-Folf/stash-bot/compare/v1.6.2...v1.6.3) (2022-01-29)
 
 
