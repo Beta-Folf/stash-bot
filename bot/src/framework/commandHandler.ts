@@ -8,7 +8,7 @@ import {
 import { ARGUMENT_VALIDATION_ERRORS } from "~/framework/CommandError";
 import { getUserIDFromMention, getChannelIDFromLink } from "~/utils/ids";
 import { CONFIG } from "~/constants/config";
-import { CommandError } from "./CommandError";
+import { CommandError, CustomValidatorError } from "./CommandError";
 
 type CommandExecutionReturnType = Pick<ImportedCommandCog, "run"> & {
   runArgs: CommandRunArgs;
@@ -59,6 +59,7 @@ export async function checkCommandExecution(args: {
   const { client, message, commands } = args;
 
   let error = "";
+  let customValidatorError = false;
 
   const originalMessageContent = message.content;
 
@@ -166,7 +167,7 @@ export async function checkCommandExecution(args: {
            */
           let index = 0;
           for (const arg of argsInOrderOfRequired) {
-            const { name, type, defaultValue, optional } = arg;
+            const { name, type, defaultValue, optional, customValidator } = arg;
 
             await new Promise<void>(async (resolve) => {
               // Prevent further execution if an error is already detected
@@ -255,6 +256,17 @@ export async function checkCommandExecution(args: {
                   error = `Failed to run command ${settings.name}\nInvalid arg type "${type}" for argument ${name}`;
               }
 
+              if (!error && customValidator) {
+                const customValidatorResult = customValidator(
+                  splitLowercaseMessageWithoutPrefix[index]
+                );
+
+                if (customValidatorResult) {
+                  error = customValidatorResult;
+                  customValidatorError = true;
+                }
+              }
+
               // Check arg values
               if (!error) {
                 // We check against undefined or an empty string
@@ -283,7 +295,9 @@ export async function checkCommandExecution(args: {
         }
       }
 
-      if (!!error) {
+      if (!!error && customValidatorError) {
+        throw new CustomValidatorError(error);
+      } else if (!!error) {
         throw new CommandError({
           commandName,
           message: error,

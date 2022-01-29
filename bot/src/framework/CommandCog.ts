@@ -14,6 +14,7 @@ export interface CommandArg {
   type: COMMAND_ARG_TYPE;
   optional?: boolean;
   defaultValue?: string | boolean | number;
+  customValidator?(value: string): string | void;
 }
 
 export interface Settings {

@@ -50,3 +50,13 @@ export class CommandError extends Error implements ICommandError {
     this.commandName = commandName;
   }
 }
+
+export class CustomValidatorError extends Error {
+  constructor(message: string) {
+    super(message);
+
+    Object.setPrototypeOf(this, CustomValidatorError.prototype);
+
+    this.name = "CustomValidatorError";
+  }
+}

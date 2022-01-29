@@ -6,6 +6,7 @@ import { ImportedCommandCog } from "~/framework/CommandCog";
 import {
   FURRY_READABLE_ARGUMENT_VALIDATION_ERRORS,
   ARGUMENT_VALIDATION_ERRORS,
+  CustomValidatorError,
 } from "~/framework/CommandError";
 import { checkCommandExecution } from "~/framework/commandHandler";
 import { CommandError } from "~/framework/CommandError";
@@ -117,6 +118,8 @@ bot.on("messageCreate", async (message: Message) => {
           category: LOGGER_CATEGORY.COMMAND,
         });
       }
+    } else if (error instanceof CustomValidatorError) {
+      await message.reply(error.message);
     } else {
       await message.react(EMOJIS["RED_X"]);
 
