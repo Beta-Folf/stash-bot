@@ -30,11 +30,6 @@ export default class MessageEvent extends EventCog {
 
     this.locked = true;
 
-    if (message.author.id === client?.user?.id) {
-      this.locked = false;
-      return;
-    }
-
     if (messageStartsWithPrefix(message.content).startsWithPrefix) {
       this.locked = false;
       return;
