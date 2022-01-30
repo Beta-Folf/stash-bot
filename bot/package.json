@@ -26,6 +26,7 @@
     "discord.js": "^13.6.0",
     "dynamoose": "^2.8.5",
     "luxon": "^2.3.0",
+    "node-cron": "^3.0.0",
     "pretty-ms": "^7.0.1",
     "prisma": "^3.8.1"
   }

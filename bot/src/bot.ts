@@ -1,6 +1,7 @@
 import { Client, Message } from "discord.js";
 import fs from "fs";
 import path from "path";
+import cron from "node-cron";
 
 import { ImportedCommandCog } from "~/framework/CommandCog";
 import {
@@ -13,6 +14,7 @@ import { CommandError } from "~/framework/CommandError";
 import { Logger, LOGGER_CATEGORY } from "~/utils/logger";
 import { INTENTS } from "~/constants/intents";
 import { EMOJIS } from "~/constants/emojis";
+import { closePollsJob } from "~/jobs/closePolls";
 
 const bot = new Client({
   intents: INTENTS,
@@ -132,6 +134,17 @@ bot.on("messageCreate", async (message: Message) => {
       });
     }
   }
+});
+
+// Schedule background jobs
+bot.on("ready", async () => {
+  // Check polls on bot start
+  await closePollsJob(bot);
+
+  // Schedule poll closer
+  cron.schedule("* * * * *", async () => {
+    await closePollsJob(bot);
+  });
 });
 
 loadCogs(path.join(__dirname, "./cogs"));

@@ -13,7 +13,32 @@ datasource db {
 
 // Schemas
 model StickyMessage {
-  id             String  @id // Channel ID
+  id String @id // Channel ID
+
   messageId      String? @unique
   messageContent String
+}
+
+model Poll {
+  id      Int    @id @default(autoincrement())
+  guildId String
+
+  content       String
+  pollMessageId String @unique
+
+  inProgress Boolean
+  createdAt  DateTime
+  endAt      DateTime
+
+  votedYes Int?
+  votedNo  Int?
+
+  // Index for querying by soonest end at on polls that are in progress
+  @@index([inProgress, endAt])
+}
+
+model GuildSettings {
+  id String @id
+
+  pollChannelId String?
 }

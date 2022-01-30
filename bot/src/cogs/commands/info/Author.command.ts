@@ -5,10 +5,6 @@ import { EMBED_COLORS } from "~/constants/colors";
 import { CONFIG } from "~/constants/config";
 import { getUserTagAndAvatarURL } from "~/utils/users";
 
-const BASE_EMBED = {
-  color: EMBED_COLORS.BETA_BLUE,
-};
-
 export default class Author extends CommandCog {
   constructor() {
     super({
@@ -28,7 +24,7 @@ export default class Author extends CommandCog {
     const { tag, avatarURL } = ownerInformation;
 
     const embed = new MessageEmbed({
-      ...BASE_EMBED,
+      color: EMBED_COLORS.BETA_BLUE,
       title: "Gay retard",
       description: `${tag}`,
       thumbnail: {

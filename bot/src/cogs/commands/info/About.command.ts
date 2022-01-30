@@ -8,10 +8,6 @@ import { generateAvatarURL, getUserTagAndAvatarURL } from "~/utils/users";
 
 const packageJson = require("@packagejson");
 
-const BASE_EMBED = {
-  color: EMBED_COLORS.BLURPLE,
-};
-
 export default class About extends CommandCog {
   constructor() {
     super({
@@ -30,7 +26,7 @@ export default class About extends CommandCog {
     const thumbnailURL = generateAvatarURL(client.user!);
 
     const embed = new MessageEmbed({
-      ...BASE_EMBED,
+      color: EMBED_COLORS.BLURPLE,
       title: "About",
       thumbnail: {
         url: thumbnailURL,

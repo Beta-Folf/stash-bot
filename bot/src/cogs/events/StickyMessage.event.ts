@@ -44,7 +44,6 @@ export default class MessageEvent extends EventCog {
       where: {
         id: channelId,
       },
-      rejectOnNotFound: false,
     });
 
     if (stickyMessage) {

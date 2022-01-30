@@ -4,10 +4,6 @@ import prettyMS from "pretty-ms";
 import { CommandCog, CommandRunArgs } from "~/framework/CommandCog";
 import { EMBED_COLORS } from "~/constants/colors";
 
-const BASE_EMBED = {
-  color: EMBED_COLORS.BLURPLE,
-};
-
 export default class Uptime extends CommandCog {
   constructor() {
     super({
@@ -24,7 +20,7 @@ export default class Uptime extends CommandCog {
     });
 
     const embed = new MessageEmbed({
-      ...BASE_EMBED,
+      color: EMBED_COLORS.BLURPLE,
       title: "I haven't slept in",
       description: uptime,
     });
