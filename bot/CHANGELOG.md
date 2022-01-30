@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.7.3...v1.8.0) (2022-01-30)
+
+
+### Features
+
+* vote channel ([fde96eb](https://www.github.com/Beta-Folf/stash-bot/commit/fde96ebfe2e50682578b6dfa719327c85857329c))
+
 ### [1.7.3](https://www.github.com/Beta-Folf/stash-bot/compare/v1.7.2...v1.7.3) (2022-01-30)
 
 
