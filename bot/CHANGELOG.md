@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.7.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.7.0...v1.7.1) (2022-01-30)
+
+
+### Bug Fixes
+
+* bot not responding to own messages for sticky message ([28374a7](https://www.github.com/Beta-Folf/stash-bot/commit/28374a7217309167de3c54353ee8f3aef794e5b9))
+
 ## [1.7.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.6.4...v1.7.0) (2022-01-30)
 
 
