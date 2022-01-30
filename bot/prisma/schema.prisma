@@ -41,4 +41,5 @@ model GuildSettings {
   id String @id
 
   pollChannelId String?
+  voteChannels  String[]
 }
