@@ -82,12 +82,24 @@ export const stopPoll = async ({
   const upvoteTotal = upvoteReactions.count - 1;
   const downvoteTotal = downvoteReactions.count - 1;
   const voteTotal = upvoteTotal + downvoteTotal;
-  const upvotePercent = (upvoteTotal / voteTotal) * 100;
-  const downvotePercent = (downvoteTotal / voteTotal) * 100;
+  const upvotePercent = Math.round((upvoteTotal / voteTotal) * 100);
+  const downvotePercent = Math.round((downvoteTotal / voteTotal) * 100);
+
+  /**
+   * If it's a tie, the color is gray
+   * If yes wins, the color is green
+   * If no wins, the color is red
+   */
+  let color = EMBED_COLORS.GRAYPLE;
+  if (upvoteTotal > downvoteTotal) {
+    color = EMBED_COLORS.GREEN;
+  } else if (upvoteTotal < downvoteTotal) {
+    color = EMBED_COLORS.RED;
+  }
 
   // Update message
   const embed = new MessageEmbed({
-    color: EMBED_COLORS.GREEN,
+    color,
     title: "Poll Closed!",
     description: pollContent,
     fields: [
