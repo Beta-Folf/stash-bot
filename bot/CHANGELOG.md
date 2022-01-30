@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.7.3](https://www.github.com/Beta-Folf/stash-bot/compare/v1.7.2...v1.7.3) (2022-01-30)
+
+
+### Bug Fixes
+
+* fix new line in list polls ([708ecec](https://www.github.com/Beta-Folf/stash-bot/commit/708ecec7183892e89e17357387f699717378f29b))
+
 ### [1.7.2](https://www.github.com/Beta-Folf/stash-bot/compare/v1.7.1...v1.7.2) (2022-01-30)
 
 
