@@ -36,7 +36,7 @@ export default class ListPolls extends CommandCog {
     let description = "No polls in progress!";
 
     if (polls.length > 0) {
-      description = "```ID | Content";
+      description = "```ID | Content\n";
       description += polls
         .map(({ id, content }) => `${id} - ${content}`)
         .join("\n");
