@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.7.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.6.4...v1.7.0) (2022-01-30)
+
+
+### Features
+
+* custom arg validator ([6554f7a](https://www.github.com/Beta-Folf/stash-bot/commit/6554f7a04710f1080a00bbccd515c47987ebf053))
+* polls ([34a28a1](https://www.github.com/Beta-Folf/stash-bot/commit/34a28a192734fdcc88c83e3954076550bf74b059))
+
+
+### Bug Fixes
+
+* replace console log with logger ([2a206bd](https://www.github.com/Beta-Folf/stash-bot/commit/2a206bd2128594ba18ca301c65de5f1a386d3d0b))
+
 ### [1.6.4](https://www.github.com/Beta-Folf/stash-bot/compare/v1.6.3...v1.6.4) (2022-01-29)
 
 
