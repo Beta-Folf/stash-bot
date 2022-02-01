@@ -43,3 +43,9 @@ model GuildSettings {
   pollChannelId String?
   voteChannels  String[]
 }
+
+model VoteMessages {
+  id String @id
+
+  channelId String
+}

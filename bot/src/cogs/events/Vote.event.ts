@@ -4,6 +4,7 @@ import { EventCog, EventHandlerArgs } from "~/framework/EventCog";
 import { messageStartsWithPrefix } from "~/framework/commandHandler";
 import { prisma } from "~/utils/db";
 import { EMOJIS } from "~/constants/emojis";
+import { Logger, LOGGER_CATEGORY } from "~/utils/logger";
 
 export default class VoteEvent extends EventCog {
   constructor(client: Client) {
@@ -37,8 +38,16 @@ export default class VoteEvent extends EventCog {
 
     if (!!guildHasVoteChannel) {
       // React to message
-      await messageAsMessage.react(EMOJIS["UP_ARROW"]);
-      await messageAsMessage.react(EMOJIS["DOWN_ARROW"]);
+      try {
+        await messageAsMessage.react(EMOJIS["UP_ARROW"]);
+        await messageAsMessage.react(EMOJIS["DOWN_ARROW"]);
+      } catch {
+        Logger.log({
+          message: "Tried to react to a deleted message",
+          category: LOGGER_CATEGORY.COMMAND,
+          user: messageAsMessage.author,
+        });
+      }
     }
   }
 }
