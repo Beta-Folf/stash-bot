@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.8.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.8.0...v1.8.1) (2022-02-01)
+
+
+### Bug Fixes
+
+* crash from reacting to a deleted message ([1df774d](https://www.github.com/Beta-Folf/stash-bot/commit/1df774defebd00c8af3c1d33afff4e43c7291610))
+
 ## [1.8.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.7.3...v1.8.0) (2022-01-30)
 
 
