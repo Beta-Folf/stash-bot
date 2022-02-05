@@ -1,5 +1,4 @@
 import { Client, Message } from "discord.js";
-import { DateTime } from "luxon";
 
 import { EventCog, EventHandlerArgs } from "~/framework/EventCog";
 import { prisma } from "~/utils/db";
