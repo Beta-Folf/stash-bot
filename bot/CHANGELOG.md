@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.8.2](https://www.github.com/Beta-Folf/stash-bot/compare/v1.8.1...v1.8.2) (2022-02-05)
+
+
+### Bug Fixes
+
+* logging for disboard bot ([7e4be70](https://www.github.com/Beta-Folf/stash-bot/commit/7e4be70d119ea96c3007a446d48b4478e85cde88))
+
 ### [1.8.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.8.0...v1.8.1) (2022-02-01)
 
 
