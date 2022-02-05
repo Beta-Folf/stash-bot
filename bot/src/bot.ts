@@ -145,6 +145,9 @@ bot.on("ready", async () => {
   // Schedule jobs
   cron.schedule("* * * * *", async () => {
     await closePollsJob(bot);
+  });
+
+  cron.schedule("* * * * *", async () => {
     await bumpReminderJob(bot);
   });
 });

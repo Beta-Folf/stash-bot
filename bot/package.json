@@ -8,9 +8,10 @@
     "dev": "ts-node-dev --respawn -r tsconfig-paths/register ./src/bot.ts",
     "build": "./node_modules/.bin/tsc && ./node_modules/.bin/tscpaths -p tsconfig.json --src ./src --out ./build",
     "start": "yarn prisma:migrate && node .",
-    "prisma:generate": "./node_modules/.bin/prisma generate",
-    "prisma:db-push": "./node_modules/.bin/prisma db push",
-    "prisma:migrate": "./node_modules/.bin/prisma migrate deploy"
+    "prisma:generate": "DATABASE_URL=\"postgresql://postgres:password@localhost:5432/stash-bot?schema=public&connect_timeout=300\" ./node_modules/.bin/prisma generate",
+    "prisma:push": "DATABASE_URL=\"postgresql://postgres:password@localhost:5432/stash-bot?schema=public&connect_timeout=300\" ./node_modules/.bin/prisma db push",
+    "prisma:migrate": "DATABASE_URL=\"postgresql://postgres:password@localhost:5432/stash-bot?schema=public&connect_timeout=300\" ./node_modules/.bin/prisma migrate dev",
+    "prisma:studio": "DATABASE_URL=\"postgresql://postgres:password@localhost:5432/stash-bot?schema=public&connect_timeout=300\" ./node_modules/.bin/prisma studio"
   },
   "devDependencies": {
     "@types/luxon": "^2.0.9",

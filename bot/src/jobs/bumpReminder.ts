@@ -1,10 +1,9 @@
 import { Client, TextChannel } from "discord.js";
 import { DateTime } from "luxon";
+import { generateBumpTime } from "~/utils/bump";
 
 import { prisma } from "~/utils/db";
 import { Logger, LOGGER_CATEGORY } from "~/utils/logger";
-
-const BUMP_INTERVAL_MINUTES = 2;
 
 export const bumpReminderJob = async (client: Client) => {
   const allGuilds = client.guilds.cache.each((guild) => guild);
@@ -12,16 +11,13 @@ export const bumpReminderJob = async (client: Client) => {
   allGuilds.forEach(async (guild) => {
     const { id } = guild;
 
-    const now = DateTime.now();
-    const nowPlusInterval = now.plus({
-      minute: BUMP_INTERVAL_MINUTES,
-    });
+    const now = DateTime.now().toISO();
 
     const guildSettings = await prisma.guildSettings.findFirst({
       where: {
         id,
-        lastBumpedAt: {
-          lte: nowPlusInterval.toISO(),
+        sendBumpPingAt: {
+          lte: now,
         },
       },
       select: {
@@ -58,7 +54,7 @@ export const bumpReminderJob = async (client: Client) => {
         id,
       },
       data: {
-        lastBumpedAt: null,
+        sendBumpPingAt: generateBumpTime(),
       },
     });
   });

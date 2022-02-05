@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 import { EventCog, EventHandlerArgs } from "~/framework/EventCog";
 import { prisma } from "~/utils/db";
 import { USERS } from "~/constants/users";
+import { generateBumpTime } from "~/utils/bump";
 
 const SUCCESS_MESSAGE_REGEX = /<@[0-9]{18}> Bump done! :thumbsup:/gm;
 export default class MessageEvent extends EventCog {
@@ -34,7 +35,7 @@ export default class MessageEvent extends EventCog {
       return;
     }
 
-    const now = DateTime.now().toISO();
+    const sendBumpPingAt = generateBumpTime();
 
     await prisma.guildSettings.upsert({
       where: {
@@ -42,10 +43,10 @@ export default class MessageEvent extends EventCog {
       },
       create: {
         id: guildId!,
-        lastBumpedAt: now,
+        sendBumpPingAt,
       },
       update: {
-        lastBumpedAt: now,
+        sendBumpPingAt,
       },
     });
   }
