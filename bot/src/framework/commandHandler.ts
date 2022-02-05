@@ -252,6 +252,25 @@ export async function checkCommandExecution(args: {
                   }
 
                   break;
+                case COMMAND_ARG_TYPE.ROLE:
+                  // Check if the value is a valid role in
+                  // the guild the command was run in
+                  try {
+                    const { roles } = message.guild!;
+
+                    const roleWithID = await roles.fetch(
+                      splitLowercaseMessageWithoutPrefix[index]
+                    );
+
+                    if (roleWithID) {
+                      value = splitOriginalMessageWithoutPrefix[index];
+                    } else {
+                      error = ARGUMENT_VALIDATION_ERRORS.INVALID_ROLE;
+                    }
+                  } catch {
+                    error = ARGUMENT_VALIDATION_ERRORS.INVALID_ROLE;
+                  }
+                  break;
                 default:
                   error = `Failed to run command ${settings.name}\nInvalid arg type "${type}" for argument ${name}`;
               }

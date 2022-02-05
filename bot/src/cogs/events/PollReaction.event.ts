@@ -28,8 +28,6 @@ export default class PollReactionEvent extends EventCog {
     // @ts-ignore
     const message = contextAsUnknown.message as Message;
 
-    console.log(contextAsUnknown);
-
     const poll = await prisma.poll.findFirst({
       where: {
         pollMessageId: message.id,

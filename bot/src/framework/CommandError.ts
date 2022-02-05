@@ -12,6 +12,7 @@ export enum ARGUMENT_VALIDATION_ERRORS {
   INVALID_BOOLEAN = "INVALID_BOOLEAN",
   INVALID_USER = "INVALID_USER",
   INVALID_CHANNEL = "INVALID_CHANNEL",
+  INVALID_ROLE = "INVALID_ROLE",
   GENERAL_INVALID = "GENERAL_INVALID",
 }
 
@@ -29,6 +30,7 @@ export const FURRY_READABLE_ARGUMENT_VALIDATION_ERRORS: Record<
   INVALID_BOOLEAN: "Invalid boolean passed!",
   INVALID_USER: "Invalid user passed!",
   INVALID_CHANNEL: "Invalid channel passed!",
+  INVALID_ROLE: "Invalid role passed!",
   GENERAL_INVALID: "One of the arguments is invalid!",
 };
 

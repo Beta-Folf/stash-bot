@@ -15,6 +15,7 @@ import { Logger, LOGGER_CATEGORY } from "~/utils/logger";
 import { INTENTS } from "~/constants/intents";
 import { EMOJIS } from "~/constants/emojis";
 import { closePollsJob } from "~/jobs/closePolls";
+import { bumpReminderJob } from "~/jobs/bumpReminder";
 
 const bot = new Client({
   intents: INTENTS,
@@ -141,9 +142,10 @@ bot.on("ready", async () => {
   // Check polls on bot start
   await closePollsJob(bot);
 
-  // Schedule poll closer
+  // Schedule jobs
   cron.schedule("* * * * *", async () => {
     await closePollsJob(bot);
+    await bumpReminderJob(bot);
   });
 });
 

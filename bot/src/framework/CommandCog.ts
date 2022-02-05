@@ -7,6 +7,7 @@ export enum COMMAND_ARG_TYPE {
   BOOLEAN = "boolean", // true/false, yes/no, t/f, y/n
   USER = "user", // snowflake or user ping
   CHANNEL = "channel", // snowflake or channel link
+  ROLE = "role", // Role
 }
 
 export interface CommandArg {

@@ -42,6 +42,9 @@ model GuildSettings {
 
   pollChannelId String?
   voteChannels  String[]
+  lastBumpedAt  DateTime?
+  bumpChannelId String?
+  bumpRoleId    String?
 }
 
 model VoteMessages {

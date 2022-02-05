@@ -6,10 +6,10 @@ import {
 import { EMOJIS } from "~/constants/emojis";
 import { prisma } from "~/utils/db";
 
-export default class SetVoteChannel extends CommandCog {
+export default class SetBumpChannel extends CommandCog {
   constructor() {
     super({
-      name: "setvotechannel",
+      name: "setbumpchannel",
       permissions: ["MANAGE_CHANNELS"],
       commandArgs: [
         {
@@ -37,13 +37,10 @@ export default class SetVoteChannel extends CommandCog {
       },
       create: {
         id: guildId!,
-        voteChannels: [channelIdAsString],
+        bumpChannelId: channelIdAsString,
       },
       update: {
-        pollChannelId: channelIdAsString,
-        voteChannels: {
-          push: channelIdAsString,
-        },
+        bumpChannelId: channelIdAsString,
       },
     });
 

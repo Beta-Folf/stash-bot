@@ -1,7 +1,7 @@
 import { Client, Message } from "discord.js";
+import { DateTime } from "luxon";
 
 import { EventCog, EventHandlerArgs } from "~/framework/EventCog";
-import { messageStartsWithPrefix } from "~/framework/commandHandler";
 import { prisma } from "~/utils/db";
 import { USERS } from "~/constants/users";
 
@@ -16,21 +16,37 @@ export default class MessageEvent extends EventCog {
 
   async eventHandler({ client, context }: EventHandlerArgs) {
     const message = context as unknown as Message;
-    const { channelId, author, embeds } = message;
+    const { guildId, author, embeds } = message;
 
     if (author.id !== USERS.BUMP_BOT) {
       return;
     }
 
     const embed = embeds[0];
+
+    if (!embed) {
+      return;
+    }
+
     const { description } = embed;
 
-    console.log({ description });
-
-    if (description?.match(SUCCESS_MESSAGE_REGEX)) {
-      console.log("Matches");
-    } else {
-      console.log("Does not match");
+    if (!description?.match(SUCCESS_MESSAGE_REGEX)) {
+      return;
     }
+
+    const now = DateTime.now().toISO();
+
+    await prisma.guildSettings.upsert({
+      where: {
+        id: guildId!,
+      },
+      create: {
+        id: guildId!,
+        lastBumpedAt: now,
+      },
+      update: {
+        lastBumpedAt: now,
+      },
+    });
   }
 }

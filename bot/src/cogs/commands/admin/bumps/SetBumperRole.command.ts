@@ -6,15 +6,16 @@ import {
 import { EMOJIS } from "~/constants/emojis";
 import { prisma } from "~/utils/db";
 
-export default class SetVoteChannel extends CommandCog {
+export default class SetBumpChannel extends CommandCog {
   constructor() {
     super({
-      name: "setvotechannel",
-      permissions: ["MANAGE_CHANNELS"],
+      name: "setbumperrole",
+      nicks: ["setbumprole"],
+      permissions: ["MANAGE_ROLES"],
       commandArgs: [
         {
-          name: "channelId",
-          type: COMMAND_ARG_TYPE.CHANNEL,
+          name: "roleId",
+          type: COMMAND_ARG_TYPE.ROLE,
         },
       ],
     });
@@ -22,14 +23,14 @@ export default class SetVoteChannel extends CommandCog {
 
   async run(args: CommandRunArgs) {
     const { client, context, commandArgs } = args;
-    const { channelId } = commandArgs;
+    const { roleId } = commandArgs;
 
     const { guildId } = context;
 
     // We already do the channel ID validation in the
     // argument check so we don't need to check if the
     // channel is valid here
-    const channelIdAsString = channelId as string;
+    const roleIdAsString = roleId as string;
 
     await prisma.guildSettings.upsert({
       where: {
@@ -37,13 +38,10 @@ export default class SetVoteChannel extends CommandCog {
       },
       create: {
         id: guildId!,
-        voteChannels: [channelIdAsString],
+        bumpRoleId: roleIdAsString,
       },
       update: {
-        pollChannelId: channelIdAsString,
-        voteChannels: {
-          push: channelIdAsString,
-        },
+        bumpRoleId: roleIdAsString,
       },
     });
 
