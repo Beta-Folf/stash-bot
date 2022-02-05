@@ -1,7 +1,7 @@
 {
   "name": "bot",
   "private": true,
-  "version": "1.8.3",
+  "version": "1.9.0",
   "main": "build/bot.js",
   "license": "MIT",
   "scripts": {

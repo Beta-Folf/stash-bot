@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.8.3...v1.9.0) (2022-02-05)
+
+
+### Features
+
+* bumper command ([574bee6](https://www.github.com/Beta-Folf/stash-bot/commit/574bee635799c85e23aed8501544651f84333bab))
+
 ### [1.8.3](https://www.github.com/Beta-Folf/stash-bot/compare/v1.8.2...v1.8.3) (2022-02-05)
 
 
