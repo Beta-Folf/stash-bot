@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 
-const BUMP_INTERVAL_MINUTES = 120;
+// 119 instead of 120 because the cron job always executes on the next minute
+const BUMP_INTERVAL_MINUTES = 119;
 
 export const generateBumpTime = (): string => {
   const now = DateTime.now();
