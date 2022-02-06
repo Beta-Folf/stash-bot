@@ -1,5 +1,14 @@
 # Changelog
 
+### [1.9.4](https://www.github.com/Beta-Folf/stash-bot/compare/v1.9.3...v1.9.4) (2022-02-06)
+
+
+### Bug Fixes
+
+* bump time increment ([f1d4561](https://www.github.com/Beta-Folf/stash-bot/commit/f1d456190d0ee3b636d67115248e9c0083dcd791))
+* prisma ([804b3c1](https://www.github.com/Beta-Folf/stash-bot/commit/804b3c1f3d1d563f8d18c9bf2b8b7517b167c02a))
+* prisma ([617b274](https://www.github.com/Beta-Folf/stash-bot/commit/617b2740d84cef669c295cfb8b2483ce425d2cfc))
+
 ### [1.9.3](https://www.github.com/Beta-Folf/stash-bot/compare/v1.9.2...v1.9.3) (2022-02-06)
 
 
