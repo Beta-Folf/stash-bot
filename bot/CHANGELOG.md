@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.10.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.10.0...v1.10.1) (2022-02-06)
+
+
+### Bug Fixes
+
+* prisma ([ebf8f2c](https://www.github.com/Beta-Folf/stash-bot/commit/ebf8f2c1ed494e732f2029a1ee6bd46c9768786f))
+
 ## [1.10.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.9.4...v1.10.0) (2022-02-06)
 
 
