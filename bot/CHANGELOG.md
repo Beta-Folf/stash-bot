@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.9.4...v1.10.0) (2022-02-06)
+
+
+### Features
+
+* fix bump time ([645e42c](https://www.github.com/Beta-Folf/stash-bot/commit/645e42c8274a86c515e94374a2cf5f64e193f33c))
+
 ### [1.9.4](https://www.github.com/Beta-Folf/stash-bot/compare/v1.9.3...v1.9.4) (2022-02-06)
 
 
