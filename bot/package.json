@@ -10,7 +10,7 @@
     "start": "yarn prisma:migrate && node .",
     "prisma:generate": "DATABASE_URL=\"postgresql://postgres:password@localhost:5432/stash-bot?schema=public&connect_timeout=300\" ./node_modules/.bin/prisma generate",
     "prisma:push": "DATABASE_URL=\"postgresql://postgres:password@localhost:5432/stash-bot?schema=public&connect_timeout=300\" ./node_modules/.bin/prisma db push",
-    "prisma:migrate": "DATABASE_URL=\"postgresql://postgres:password@localhost:5432/stash-bot?schema=public&connect_timeout=300\" ./node_modules/.bin/prisma migrate",
+    "prisma:migrate": "DATABASE_URL=\"postgresql://postgres:password@localhost:5432/stash-bot?schema=public&connect_timeout=300\" ./node_modules/.bin/prisma migrate deploy",
     "prisma:studio": "DATABASE_URL=\"postgresql://postgres:password@localhost:5432/stash-bot?schema=public&connect_timeout=300\" ./node_modules/.bin/prisma studio"
   },
   "devDependencies": {
