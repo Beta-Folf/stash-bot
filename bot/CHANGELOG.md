@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.9.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.9.0...v1.9.1) (2022-02-06)
+
+
+### Bug Fixes
+
+* cleanup ([171ff32](https://www.github.com/Beta-Folf/stash-bot/commit/171ff321e7651a2b2825dcbd8bb43f08185689a6))
+* fix bump not working properly ([e401764](https://www.github.com/Beta-Folf/stash-bot/commit/e4017647567aedb141455f38cd15039571d2105b))
+
 ## [1.9.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.8.3...v1.9.0) (2022-02-05)
 
 
