@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.9.2](https://www.github.com/Beta-Folf/stash-bot/compare/v1.9.1...v1.9.2) (2022-02-06)
+
+
+### Bug Fixes
+
+* prisma migrate command ([d8af7f0](https://www.github.com/Beta-Folf/stash-bot/commit/d8af7f0444461cf3664675dc6e6eb162a26c3a6d))
+
 ### [1.9.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.9.0...v1.9.1) (2022-02-06)
 
 
