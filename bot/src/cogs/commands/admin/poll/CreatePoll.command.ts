@@ -207,7 +207,9 @@ export default class CreatePoll extends CommandCog {
 
     // Add the voting reactions to the sent embed
     await pollEmbedMessage.react(EMOJIS["UP_ARROW"]);
-    await pollEmbedMessage.react(EMOJIS["DOWN_ARROW"]);
+    setTimeout(async () => {
+      await pollEmbedMessage.react(EMOJIS["DOWN_ARROW"]);
+    }, 500);
 
     try {
       // Save poll to database

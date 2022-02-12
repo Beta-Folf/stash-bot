@@ -40,7 +40,9 @@ export default class VoteEvent extends EventCog {
       // React to message
       try {
         await messageAsMessage.react(EMOJIS["UP_ARROW"]);
-        await messageAsMessage.react(EMOJIS["DOWN_ARROW"]);
+        setTimeout(async () => {
+          await messageAsMessage.react(EMOJIS["DOWN_ARROW"]);
+        }, 500);
       } catch {
         Logger.log({
           message: "Tried to react to a deleted message",
