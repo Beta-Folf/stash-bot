@@ -3,11 +3,11 @@ import { DateTime } from "luxon";
 
 import { EventCog, EventHandlerArgs } from "~/framework/EventCog";
 
-export default class MessageEvent extends EventCog {
+export default class UserJoinEvent extends EventCog {
   constructor(client: Client) {
     super({
       client,
-      eventName: "guidMemberAdd",
+      eventName: "guildMemberAdd",
     });
   }
 
