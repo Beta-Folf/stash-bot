@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.10.2](https://www.github.com/Beta-Folf/stash-bot/compare/v1.10.1...v1.10.2) (2022-02-12)
+
+
+### Bug Fixes
+
+* add delay between reactions ([87ee840](https://www.github.com/Beta-Folf/stash-bot/commit/87ee8401ce23f47f44abec37e27f4f5ad3ac7330))
+
 ### [1.10.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.10.0...v1.10.1) (2022-02-06)
 
 
