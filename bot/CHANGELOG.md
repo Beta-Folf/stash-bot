@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.10.2...v1.11.0) (2022-03-07)
+
+
+### Features
+
+* quarantine role on user join ([f8df7a5](https://www.github.com/Beta-Folf/stash-bot/commit/f8df7a51332d694a54f19a2a2479f79f1dc8f477))
+
 ### [1.10.2](https://www.github.com/Beta-Folf/stash-bot/compare/v1.10.1...v1.10.2) (2022-02-12)
 
 
