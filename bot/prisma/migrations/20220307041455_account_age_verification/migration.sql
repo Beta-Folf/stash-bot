@@ -5,7 +5,6 @@
 
 */
 -- AlterTable
-ALTER TABLE "GuildSettings" DROP COLUMN "lastBumpedAt",
+ALTER TABLE "GuildSettings"
 ADD COLUMN     "quarantineRoleId" TEXT,
-ADD COLUMN     "sendBumpPingAt" TIMESTAMP(3),
 ADD COLUMN     "verifiedRoleId" TEXT;
