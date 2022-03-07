@@ -40,11 +40,12 @@ model Poll {
 model GuildSettings {
   id String @id
 
-  pollChannelId  String?
-  voteChannels   String[]
-  sendBumpPingAt DateTime?
-  bumpChannelId  String?
-  bumpRoleId     String?
+  pollChannelId    String?
+  voteChannels     String[]
+  sendBumpPingAt   DateTime?
+  bumpChannelId    String?
+  bumpRoleId       String?
+  quarantineRoleId String?
 }
 
 model VoteMessages {

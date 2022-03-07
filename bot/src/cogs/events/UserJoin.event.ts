@@ -1,7 +1,10 @@
-import { Client, GuildMember, Message } from "discord.js";
+import { Client, GuildMember } from "discord.js";
 import { DateTime } from "luxon";
 
 import { EventCog, EventHandlerArgs } from "~/framework/EventCog";
+import { prisma } from "~/utils/db";
+
+const MINIMUM_ACCOUNT_AGE_DAYS = 7;
 
 export default class UserJoinEvent extends EventCog {
   constructor(client: Client) {
@@ -13,6 +16,7 @@ export default class UserJoinEvent extends EventCog {
 
   async eventHandler({ client, context }: EventHandlerArgs) {
     const guildUser = context as unknown as GuildMember;
+
     if (guildUser.user.bot) {
       return;
     }
@@ -20,8 +24,26 @@ export default class UserJoinEvent extends EventCog {
     const now = DateTime.now();
     const userCreated = guildUser.user.createdAt;
 
-    if (now.minus({ day: 2 }).toMillis() < userCreated.getTime()) {
-      await guildUser.ban();
+    const guildSettings = await prisma.guildSettings.findUnique({
+      where: {
+        id: guildUser.guild.id,
+      },
+      select: {
+        quarantineRoleId: true,
+      },
+    });
+
+    if (!guildSettings || !guildSettings.quarantineRoleId) {
+      return;
+    }
+
+    const { quarantineRoleId } = guildSettings;
+
+    if (
+      now.minus({ day: MINIMUM_ACCOUNT_AGE_DAYS }).toMillis() <
+      userCreated.getTime()
+    ) {
+      await guildUser.roles.add(quarantineRoleId);
     }
   }
 }
