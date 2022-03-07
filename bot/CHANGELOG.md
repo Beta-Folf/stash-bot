@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.12.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.11.0...v1.12.0) (2022-03-07)
+
+
+### Features
+
+* migration ([6b588bc](https://www.github.com/Beta-Folf/stash-bot/commit/6b588bcfcb68a40c63fd6b5934df5c956ec46367))
+* verified account role ([2dcbb3f](https://www.github.com/Beta-Folf/stash-bot/commit/2dcbb3f4905c0cb6683e94b02f6e55f27ee3f0bb))
+
 ## [1.11.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.10.2...v1.11.0) (2022-03-07)
 
 
