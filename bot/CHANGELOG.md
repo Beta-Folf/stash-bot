@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.12.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.12.0...v1.12.1) (2022-03-07)
+
+
+### Bug Fixes
+
+* migration bs ([bb7e74f](https://www.github.com/Beta-Folf/stash-bot/commit/bb7e74f11031b7e9103d20d217497d579c9d3ac9))
+
 ## [1.12.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.11.0...v1.12.0) (2022-03-07)
 
 
