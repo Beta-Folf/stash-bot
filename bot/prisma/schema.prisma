@@ -46,6 +46,7 @@ model GuildSettings {
   bumpChannelId    String?
   bumpRoleId       String?
   quarantineRoleId String?
+  verifiedRoleId   String?
 }
 
 model VoteMessages {

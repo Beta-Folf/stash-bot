@@ -30,20 +30,27 @@ export default class UserJoinEvent extends EventCog {
       },
       select: {
         quarantineRoleId: true,
+        verifiedRoleId: true,
       },
     });
 
-    if (!guildSettings || !guildSettings.quarantineRoleId) {
+    if (
+      !guildSettings ||
+      !guildSettings.quarantineRoleId ||
+      !guildSettings.verifiedRoleId
+    ) {
       return;
     }
 
-    const { quarantineRoleId } = guildSettings;
+    const { quarantineRoleId, verifiedRoleId } = guildSettings;
 
     if (
       now.minus({ day: MINIMUM_ACCOUNT_AGE_DAYS }).toMillis() <
       userCreated.getTime()
     ) {
-      await guildUser.roles.add(quarantineRoleId);
+      await guildUser.roles.set([quarantineRoleId]);
+    } else {
+      await guildUser.roles.set([verifiedRoleId]);
     }
   }
 }
