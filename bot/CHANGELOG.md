@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.12.2...v1.13.0) (2022-03-07)
+
+
+### Features
+
+* quarantine command ([0226ff9](https://www.github.com/Beta-Folf/stash-bot/commit/0226ff94af156a26bd7e4d8618da5413da34dff8))
+
 ### [1.12.2](https://www.github.com/Beta-Folf/stash-bot/compare/v1.12.1...v1.12.2) (2022-03-07)
 
 
