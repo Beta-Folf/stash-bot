@@ -5,6 +5,7 @@ import {
 } from "~/framework/CommandCog";
 import { EMOJIS } from "~/constants/emojis";
 import { prisma } from "~/utils/db";
+import { sendQuarantineAlert } from "~/utils/quarantine";
 
 export default class QuarantineUser extends CommandCog {
   constructor() {
@@ -38,6 +39,7 @@ export default class QuarantineUser extends CommandCog {
       },
       select: {
         quarantineRoleId: true,
+        quarantineAlertChannelId: true,
       },
     });
 
@@ -55,7 +57,17 @@ export default class QuarantineUser extends CommandCog {
       return;
     }
 
-    await guildMember.roles.add([guildSettings.quarantineRoleId]);
+    const { quarantineRoleId, quarantineAlertChannelId } = guildSettings;
+
+    await guildMember.roles.add([quarantineRoleId]);
+
+    if (quarantineAlertChannelId) {
+      await sendQuarantineAlert({
+        client,
+        channelId: quarantineAlertChannelId,
+        member: guildMember,
+      });
+    }
 
     await context.react(EMOJIS["GREEN_CHECKMARK"]);
   }

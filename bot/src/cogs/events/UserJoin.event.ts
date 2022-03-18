@@ -3,6 +3,7 @@ import { DateTime } from "luxon";
 
 import { EventCog, EventHandlerArgs } from "~/framework/EventCog";
 import { prisma } from "~/utils/db";
+import { sendQuarantineAlert } from "~/utils/quarantine";
 
 const MINIMUM_ACCOUNT_AGE_DAYS = 7;
 
@@ -31,6 +32,7 @@ export default class UserJoinEvent extends EventCog {
       select: {
         quarantineRoleId: true,
         verifiedRoleId: true,
+        quarantineAlertChannelId: true,
       },
     });
 
@@ -42,13 +44,22 @@ export default class UserJoinEvent extends EventCog {
       return;
     }
 
-    const { quarantineRoleId, verifiedRoleId } = guildSettings;
+    const { quarantineRoleId, verifiedRoleId, quarantineAlertChannelId } =
+      guildSettings;
 
     if (
       now.minus({ day: MINIMUM_ACCOUNT_AGE_DAYS }).toMillis() <
       userCreated.getTime()
     ) {
       await guildUser.roles.set([quarantineRoleId]);
+
+      if (quarantineAlertChannelId) {
+        await sendQuarantineAlert({
+          client,
+          channelId: quarantineAlertChannelId,
+          member: guildUser,
+        });
+      }
     } else {
       await guildUser.roles.set([verifiedRoleId]);
     }
