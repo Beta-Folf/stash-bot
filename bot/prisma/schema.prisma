@@ -49,6 +49,7 @@ model GuildSettings {
   quarantineRoleId         String?
   verifiedRoleId           String?
   quarantineAlertChannelId String?
+  logChannelId             String?
 }
 
 model VoteMessages {

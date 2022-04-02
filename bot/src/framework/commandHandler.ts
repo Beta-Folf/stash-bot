@@ -9,6 +9,7 @@ import { ARGUMENT_VALIDATION_ERRORS } from "~/framework/CommandError";
 import { getUserIDFromMention, getChannelIDFromLink } from "~/utils/ids";
 import { CONFIG } from "~/constants/config";
 import { CommandError, CustomValidatorError } from "./CommandError";
+import ms from "ms";
 
 type CommandExecutionReturnType = Pick<ImportedCommandCog, "run"> & {
   runArgs: CommandRunArgs;
@@ -270,6 +271,18 @@ export async function checkCommandExecution(args: {
                   } catch {
                     error = ARGUMENT_VALIDATION_ERRORS.INVALID_ROLE;
                   }
+                  break;
+                case COMMAND_ARG_TYPE.TIME:
+                  const restOfTimeValues =
+                    splitOriginalMessageWithoutPrefix.slice(index);
+                  const allTimeValues = restOfTimeValues.join(" ");
+
+                  value = ms(allTimeValues);
+
+                  if (value === undefined || value < 1) {
+                    error = ARGUMENT_VALIDATION_ERRORS.INVALID_TIME;
+                  }
+
                   break;
                 default:
                   error = `Failed to run command ${settings.name}\nInvalid arg type "${type}" for argument ${name}`;

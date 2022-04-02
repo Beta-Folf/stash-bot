@@ -8,6 +8,7 @@ export enum COMMAND_ARG_TYPE {
   USER = "user", // snowflake or user ping
   CHANNEL = "channel", // snowflake or channel link
   ROLE = "role", // Role
+  TIME = "time", // Time duration
 }
 
 export interface CommandArg {
