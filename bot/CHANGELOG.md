@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.14.0...v1.15.0) (2022-04-02)
+
+
+### Features
+
+* moderation commands, mod logs ([bc77767](https://www.github.com/Beta-Folf/stash-bot/commit/bc77767699e92bdc579c4471620c3d0e72dc1ae6))
+
 ## [1.14.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.13.0...v1.14.0) (2022-03-18)
 
 
