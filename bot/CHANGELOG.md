@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.13.0...v1.14.0) (2022-03-18)
+
+
+### Features
+
+* quarantine channel ([2148861](https://www.github.com/Beta-Folf/stash-bot/commit/2148861e21c142b931ba028be40353fcddad5f1a))
+
 ## [1.13.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.12.2...v1.13.0) (2022-03-07)
 
 
