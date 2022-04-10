@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.15.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.15.0...v1.15.1) (2022-04-10)
+
+
+### Bug Fixes
+
+* bump not firing correctly ([401b3b7](https://www.github.com/Beta-Folf/stash-bot/commit/401b3b7481153dcd0c960a96462a0b26e18ceddb))
+
 ## [1.15.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.14.0...v1.15.0) (2022-04-02)
 
 
