@@ -9,7 +9,10 @@ export async function getUserIDFromMention({
   value,
   client,
 }: IDParsingArgs): Promise<string | null> {
-  const valueWithoutDecorations = value.replace("<@", "").replace(">", "");
+  const valueWithoutDecorations = value
+    .replace("<@", "")
+    .replace("!", "")
+    .replace(">", "");
 
   if (valueWithoutDecorations.length === 0) {
     return null;
@@ -34,10 +37,7 @@ export async function getChannelIDFromLink({
   value,
   client,
 }: IDParsingArgs): Promise<string | null> {
-  const valueWithoutDecorations = value
-    .replace("<#", "")
-    .replace("!", "")
-    .replace(">", "");
+  const valueWithoutDecorations = value.replace("<#", "").replace(">", "");
 
   if (valueWithoutDecorations.length === 0) {
     return null;
