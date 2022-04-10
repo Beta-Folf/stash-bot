@@ -43,9 +43,11 @@ export default class MessageEvent extends EventCog {
       create: {
         id: guildId!,
         sendBumpPingAt,
+        isBumped: true,
       },
       update: {
         sendBumpPingAt,
+        isBumped: true,
       },
     });
   }

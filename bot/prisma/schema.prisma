@@ -44,6 +44,7 @@ model GuildSettings {
   voteChannels             String[]
   sendBumpPingAt           DateTime?
   lastBumpedAt             DateTime?
+  isBumped                 Boolean?
   bumpChannelId            String?
   bumpRoleId               String?
   quarantineRoleId         String?

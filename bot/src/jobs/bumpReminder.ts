@@ -19,6 +19,7 @@ export const bumpReminderJob = async (client: Client) => {
         sendBumpPingAt: {
           lte: now,
         },
+        isBumped: true,
       },
       select: {
         bumpChannelId: true,
@@ -55,6 +56,7 @@ export const bumpReminderJob = async (client: Client) => {
       },
       data: {
         sendBumpPingAt: generateBumpTime(),
+        isBumped: false,
       },
     });
   });
