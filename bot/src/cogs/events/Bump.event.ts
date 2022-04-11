@@ -5,7 +5,7 @@ import { prisma } from "~/utils/db";
 import { USERS } from "~/constants/users";
 import { generateBumpTime } from "~/utils/bump";
 
-const SUCCESS_MESSAGE_REGEX = /<@[0-9]{18}> Bump done! :thumbsup:/gm;
+const SUCCESS_MESSAGE_REGEX = /Bump done! :thumbsup:/gm;
 export default class MessageEvent extends EventCog {
   constructor(client: Client) {
     super({
