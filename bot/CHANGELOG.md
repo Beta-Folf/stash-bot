@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.15.5](https://www.github.com/Beta-Folf/stash-bot/compare/v1.15.4...v1.15.5) (2022-04-11)
+
+
+### Bug Fixes
+
+* mute permissions ([5767a98](https://www.github.com/Beta-Folf/stash-bot/commit/5767a98d4755fde756aefa6707b91562f00a3657))
+
 ### [1.15.4](https://www.github.com/Beta-Folf/stash-bot/compare/v1.15.3...v1.15.4) (2022-04-11)
 
 
