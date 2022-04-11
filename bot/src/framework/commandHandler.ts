@@ -133,7 +133,7 @@ export async function checkCommandExecution(args: {
         });
 
         if (!userHasPermissions) {
-          error = ARGUMENT_VALIDATION_ERRORS.MISSING_REQUIRED_ARGS;
+          error = ARGUMENT_VALIDATION_ERRORS.MISSING_PERMISSIONS;
         }
       }
 
