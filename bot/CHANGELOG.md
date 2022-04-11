@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.15.3](https://www.github.com/Beta-Folf/stash-bot/compare/v1.15.2...v1.15.3) (2022-04-11)
+
+
+### Bug Fixes
+
+* remove ping from success bump message regex ([4d115da](https://www.github.com/Beta-Folf/stash-bot/commit/4d115dabfd865b8ec3a84fa689eea6d342129f23))
+
 ### [1.15.2](https://www.github.com/Beta-Folf/stash-bot/compare/v1.15.1...v1.15.2) (2022-04-10)
 
 
