@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.15.2](https://www.github.com/Beta-Folf/stash-bot/compare/v1.15.1...v1.15.2) (2022-04-10)
+
+
+### Bug Fixes
+
+* removing ! from wrong function ([d283460](https://www.github.com/Beta-Folf/stash-bot/commit/d2834606ab148e7b18ca9456151489d69310317c))
+* user ids not getting parsed correctly ([f7da4c8](https://www.github.com/Beta-Folf/stash-bot/commit/f7da4c814c7b9b880f3601fdb18222a75f733424))
+
 ### [1.15.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.15.0...v1.15.1) (2022-04-10)
 
 
