@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.15.4](https://www.github.com/Beta-Folf/stash-bot/compare/v1.15.3...v1.15.4) (2022-04-11)
+
+
+### Bug Fixes
+
+* wrong message when user missing permissions ([fbdc6ea](https://www.github.com/Beta-Folf/stash-bot/commit/fbdc6ea644ec3c8f31b573e7204b62bafd7e6cde))
+
 ### [1.15.3](https://www.github.com/Beta-Folf/stash-bot/compare/v1.15.2...v1.15.3) (2022-04-11)
 
 
