@@ -14,7 +14,7 @@ export default class MuteUser extends CommandCog {
     super({
       name: "mute",
       nicks: ["timeout", "censor", "1984"],
-      permissions: ["MANAGE_ROLES"],
+      permissions: ["MODERATE_MEMBERS"],
       commandArgs: [
         {
           name: "userId",
