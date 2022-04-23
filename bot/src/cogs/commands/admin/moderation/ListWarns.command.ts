@@ -69,7 +69,7 @@ export default class ListWarns extends CommandCog {
       let adminDetails: GuildMember | undefined;
 
       try {
-        adminDetails = await guild.members.fetch(warning.userId);
+        adminDetails = await guild.members.fetch(warning.warnedByUserId);
       } catch {}
 
       warningFields.push({
