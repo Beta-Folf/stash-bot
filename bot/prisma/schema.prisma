@@ -58,3 +58,15 @@ model VoteMessages {
 
   channelId String
 }
+
+model Warnings {
+  id String @id @default(uuid())
+
+  userId         String
+  warnedByUserId String
+  reason         String?
+  issuedAt       DateTime
+
+  @@index(userId)
+  @@index(issuedAt)
+}

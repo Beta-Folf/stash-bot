@@ -16,6 +16,7 @@ import { INTENTS } from "~/constants/intents";
 import { EMOJIS } from "~/constants/emojis";
 import { closePollsJob } from "~/jobs/closePolls";
 import { bumpReminderJob } from "~/jobs/bumpReminder";
+import { clearWarnings } from "./jobs/clearWarnings";
 
 const bot = new Client({
   intents: INTENTS,
@@ -149,6 +150,10 @@ bot.on("ready", async () => {
 
   cron.schedule("* * * * *", async () => {
     await bumpReminderJob(bot);
+  });
+
+  cron.schedule("* * * * *", async () => {
+    await clearWarnings();
   });
 });
 
