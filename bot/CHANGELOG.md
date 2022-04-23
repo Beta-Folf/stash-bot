@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.16.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.16.0...v1.16.1) (2022-04-23)
+
+
+### Bug Fixes
+
+* list warns showing wrong user ([db1e1ac](https://www.github.com/Beta-Folf/stash-bot/commit/db1e1ac71c4985597a2df1837a3e5574c75c4c37))
+* message user on warn ([5c6df5e](https://www.github.com/Beta-Folf/stash-bot/commit/5c6df5e7adcd8a4adfd422623abfc3105bc13954))
+
 ## [1.16.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.15.5...v1.16.0) (2022-04-23)
 
 
