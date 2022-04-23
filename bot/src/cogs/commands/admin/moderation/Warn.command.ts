@@ -6,8 +6,9 @@ import {
 import { EMOJIS } from "~/constants/emojis";
 import { prisma } from "~/utils/db";
 import { sendLogMessage } from "~/utils/logs";
-import { GuildMember, TextChannel } from "discord.js";
+import { EmbedField, GuildMember, MessageEmbed, TextChannel } from "discord.js";
 import { DateTime } from "luxon";
+import { EMBED_COLORS } from "~/constants/colors";
 
 export default class WarnUser extends CommandCog {
   constructor() {
@@ -69,6 +70,35 @@ export default class WarnUser extends CommandCog {
         issuedAt: DateTime.now().toJSDate(),
       },
     });
+
+    try {
+      const fields: EmbedField[] = [
+        {
+          name: "Warned By",
+          value: context.author.tag,
+          inline: true,
+        },
+      ];
+
+      if (reason) {
+        fields.push({
+          name: "Reason",
+          value: reason.toString(),
+          inline: true,
+        });
+      }
+
+      const dmEmbed = new MessageEmbed({
+        color: EMBED_COLORS.BETA_BLUE,
+        title: `You've been warned in The Stash`,
+        timestamp: new Date(),
+        fields,
+      });
+
+      await guildMember?.send({
+        embeds: [dmEmbed],
+      });
+    } catch {}
 
     if (guildSettings?.logChannelId) {
       const channel = await guild.channels.fetch(guildSettings.logChannelId);
