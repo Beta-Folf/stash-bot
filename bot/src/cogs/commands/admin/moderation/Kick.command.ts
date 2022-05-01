@@ -1,3 +1,6 @@
+import { TextChannel } from "discord.js";
+import { DateTime } from "luxon";
+
 import {
   CommandCog,
   CommandRunArgs,
@@ -6,7 +9,6 @@ import {
 import { EMOJIS } from "~/constants/emojis";
 import { prisma } from "~/utils/db";
 import { sendLogMessage } from "~/utils/logs";
-import { TextChannel } from "discord.js";
 
 export default class KickUser extends CommandCog {
   constructor() {
@@ -56,14 +58,6 @@ export default class KickUser extends CommandCog {
       return;
     }
 
-    try {
-      await guildMember.kick(reason?.toString());
-    } catch {
-      await context.react(EMOJIS["RED_X"]);
-
-      return;
-    }
-
     if (guildSettings?.logChannelId) {
       const channel = await guild.channels.fetch(guildSettings.logChannelId);
 
@@ -74,6 +68,92 @@ export default class KickUser extends CommandCog {
           title: "User kicked",
           message: `User <@${guildMember.id}> kicked`,
         });
+      }
+    }
+
+    const originalUserWarnings = await prisma.warnings.findMany({
+      where: {
+        userId: userIdAsString,
+      },
+    });
+
+    await prisma.warnings.create({
+      data: {
+        userId: userIdAsString,
+        reason: reason?.toString(),
+        warnedByUserId: context.author.id,
+        issuedAt: DateTime.now().toJSDate(),
+      },
+    });
+
+    if (guildSettings?.logChannelId) {
+      const channel = await guild.channels.fetch(guildSettings.logChannelId);
+
+      if (channel && channel.isText() && !channel.isThread()) {
+        await sendLogMessage({
+          channel: channel as TextChannel,
+          doneBy: context.author,
+          title: "User warned",
+          message: `User ${
+            guildMember?.user.tag
+              ? guildMember.user.tag
+              : `<@${guildMember?.user.id}>`
+          } warned. ${reason && `Reason: ${reason.toString()}`}`,
+        });
+      }
+    }
+
+    console.log({ originalUserWarnings });
+
+    // If user already has two warnings, we give them a warning then ban them for a month
+    if (originalUserWarnings.length >= 2) {
+      try {
+        await guild.bans.create(userIdAsString, {
+          reason: "User reached maximum warnings",
+        });
+
+        await context.reply(
+          "User has three warnings and was banned for a month"
+        );
+
+        // Clear the user's warnings
+        await prisma.warnings.deleteMany({
+          where: {
+            userId: userIdAsString,
+          },
+        });
+
+        if (guildSettings?.logChannelId) {
+          const channel = await guild.channels.fetch(
+            guildSettings.logChannelId
+          );
+
+          if (channel && channel.isText() && !channel.isThread()) {
+            await sendLogMessage({
+              channel: channel as TextChannel,
+              doneBy: context.author,
+              title: "User temp banned",
+              message: `User ${
+                guildMember?.user.tag
+                  ? guildMember.user.tag
+                  : `<@${guildMember?.user.id}>`
+              } hit 3 warnings and was banned for a month`,
+            });
+          }
+        }
+      } catch (error) {
+        console.log(error);
+        await context.react(EMOJIS["RED_X"]);
+
+        return;
+      }
+    } else {
+      try {
+        await guildMember.kick(reason?.toString());
+      } catch (error) {
+        await context.react(EMOJIS["RED_X"]);
+
+        return;
       }
     }
 

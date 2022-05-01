@@ -118,11 +118,10 @@ export default class WarnUser extends CommandCog {
     }
 
     // If user already has three warnings, we give them a warning then ban them for a month
-    if (originalUserWarnings.length === 2) {
+    if (originalUserWarnings.length >= 2) {
       try {
         await guild.bans.create(userIdAsString, {
-          reason: reason?.toString(),
-          days: 30, // ban them for a month
+          reason: "User reached maximum warnings",
         });
 
         await context.reply(
