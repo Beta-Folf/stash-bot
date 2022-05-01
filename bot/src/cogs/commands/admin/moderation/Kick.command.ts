@@ -103,8 +103,6 @@ export default class KickUser extends CommandCog {
       }
     }
 
-    console.log({ originalUserWarnings });
-
     // If user already has two warnings, we give them a warning then ban them for a month
     if (originalUserWarnings.length >= 2) {
       try {
@@ -142,7 +140,6 @@ export default class KickUser extends CommandCog {
           }
         }
       } catch (error) {
-        console.log(error);
         await context.react(EMOJIS["RED_X"]);
 
         return;
