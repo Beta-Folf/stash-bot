@@ -51,6 +51,7 @@ export default class BanUser extends CommandCog {
     try {
       await guild.bans.create(userIdAsString, {
         reason: reason?.toString(),
+        days: 7,
       });
     } catch {
       await context.react(EMOJIS["RED_X"]);
