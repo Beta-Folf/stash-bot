@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.17.0](https://www.github.com/Beta-Folf/stash-bot/compare/v1.16.1...v1.17.0) (2022-05-25)
+
+
+### Features
+
+* purge 7 days of messages ([915b150](https://www.github.com/Beta-Folf/stash-bot/commit/915b150f5b7b6108a9ba5d920c94defbb16ca4f0))
+* warn user when kicked ([588be11](https://www.github.com/Beta-Folf/stash-bot/commit/588be118e53edd990b1669d6b63c26ed72b45c1b))
+
 ### [1.16.1](https://www.github.com/Beta-Folf/stash-bot/compare/v1.16.0...v1.16.1) (2022-04-23)
 
 
